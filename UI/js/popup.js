@@ -20,20 +20,20 @@ var call=(select_obj)=> {
       document.getElementById("field").innerHTML=x[2].innerHTML;
         }
 
-        var out=()=>{
+    var out=()=>{
 
-            mname=document.getElementById("mentorName").value;
-            let fname=document.getElementById("fieldName").value;
-            let dt=document.getElementById("startDate").value;
-            let m=document.getElementById("view-pop");
-            let close1=document.getElementById("close1");
-            m.style.display="flex";
-            close1.onclick=function(){
-                m.style.display="none";
-            }                 
-            document.getElementById("mename").innerHTML=mname;
-            document.getElementById("sdate").innerHTML=dt;
-            document.getElementById("field").innerHTML=fname;
+    mname=document.getElementById("mentorName").value;
+    let fname=document.getElementById("fieldName").value;
+    let dt=document.getElementById("startDate").value;
+    let m=document.getElementById("view-pop");
+    let close1=document.getElementById("close1");
+    m.style.display="flex";
+    close1.onclick=function(){
+     m.style.display="none";
+     }                 
+    document.getElementById("mename").innerHTML=mname;
+    document.getElementById("sdate").innerHTML=dt;
+    document.getElementById("field").innerHTML=fname;
             
             
-            }  
+    }  
