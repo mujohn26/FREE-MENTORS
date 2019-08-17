@@ -37,3 +37,18 @@ var call=(select_obj)=> {
             
             
     }  
+    var admin=(row)=>{
+        let pop=document.getElementById("popup");
+        let close=document.getElementById("close");
+        let x=row.cells;
+        row.onclick=function(){
+          if(x[3].innerHTML=="Mentor"){
+          x[4].innerHTML="Changed to user";
+        
+      }
+        else{
+          x[4].innerHTML="Changed to mentor";
+        }
+
+          }
+        }
