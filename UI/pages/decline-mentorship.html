@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>View mentors</title>
+		<title>Decline</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="../css/main.css" />
@@ -39,93 +39,63 @@
 <div class="header-main-view-mentors">
     <div class="view-mentor1">
     
-        <p><a href="decline-mentorship.html">Decline sessions</a></p>
+        <p><i class="fas fa-user-tie"></i>View Users</p>
     </div >
     <div class="view-mentor2">
     
-        <h2>Available Pending Requests</h2>
-                
+        <h2>Available Requests</h2>
+        
         <div class="mentors-table">
         <table id="table">
         <tr>
-        
         <th>UserName</th>
-        <th>Requested Date</th>
+        <th>Date</th>
         <th>Session</th>
         <th>Action</th>
-                                                      
+                                              
         </tr>
         <tr onclick="showRow(this);">
-        
         <td>John</td>
         <td>2019-09-09</td>
         <td>Business</td>
-                
-        <td><a href="#" id="view"> Accept </a></td>
+        
+        <td><a href="#" id="view"> Decline/Accept </a></td>
         </tr>
         <tr  onclick="showRow(this);">
-       
         <td>Lois</td>
         <td>2019-09-09</td>
         <td>Education</td>
-        <td><a href="#" id="view">Accept </a></td>
+        <td><a href="#" id="view">Decline/Accept </a></td>
         </tr>
         <tr  onclick="showRow(this);">
-      
         <td>Joe</td>
         <td>2019-09-09</td>
         <td>health care</td>
-        <td><a href="#" id="view">Accept </a></td>
+        <td><a href="#" id="view">Decline/Accept </a></td>
         </tr>
         <tr  onclick="showRow(this);">
-       
         <td>Cleveland</td>
         <td>2019-09-09</td>
         <td>Education</td>
-        <td><a href="#" id="view" > Accept</a></td>
+        <td><a href="#" id="view" > Decline/Accept</a></td>
         </tr>
         </table>
         </div>
-        </div>      
+        </div>       
     </div>   
     <div class="popup" id="popup">
 
         <div class="popup-content">
-        <h2>Accept Session</h2>
+        <h2>INFORMATION</h2>
         <img src="../img/close.png" id="close" class="close">
         <p>Session id:<span id="sId"></span></p>
-        <p>Username:<span id="fname"></span></p>
-        <p>Requested Date:<span id="lname"></span></p>
-        <p>Session:<span id="field"></span></p>
-        <a href="#" class="button">Accept</a>
+        <p>UserName:<span id="fname"></span></p>
+        <p>Start Date:<span id="lname"></span></p>
+        <p>Session:<span id="field"></span></p><br>
+        <a href="#" class="button-view">Decline</a>
+        <a href="accept-request.html" class="button-view">Accept</a>
         </div>        
-        </div>
-    
-
-    <div class="popup" id="popup">
-    
-    <div class="popup-content">
-    <h2>INFORMATION</h2>
-    <img src="../img/close.png" id="close" class="close">
-    <p>Mentor id:<span id="sId"></span></p>
-    <p>First Name:<span id="lname"></span></p>
-    <p>Last Name:<span id="fname"></span></p>
-    <p>Field:<span id="field"></span></p>
-    <a href="create-mentorship.html" class="button">Request</a>
-    </div>        
-    </div> 
-
-
-
-
-
-
-
-
-
-
-
-
+        </div>v>
 		<!-- Footer -->
         <footer id="footer">
        <div class="inner">
