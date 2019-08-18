@@ -1394,3 +1394,22 @@ cursor: pointer;
         color: white;
         text-align: center;
     }
+    /* ADMIN PANEL */
+    .view-admin1{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        padding: 30px;
+        background:#272727 ;
+        
+        color: white;
+        font-size: 22px;
+        height: 100%;
+    }
+    .view-admin1 img{
+        height: 20px;
+    }
+    .view-admin1 a{
+    text-decoration: none;
+    color: white;
+    }
