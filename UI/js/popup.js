@@ -22,18 +22,21 @@ var call=(select_obj)=> {
 
         var out=()=>{
 
-            mname=document.getElementById("mentorName").value;
-            let fname=document.getElementById("fieldName").value;
-            let dt=document.getElementById("startDate").value;
+            let sId=document.getElementById("sessionId").value;
+            let mId=document.getElementById("mentorId").value;
+            let meId=document.getElementById("menteeId").value;
+            let qn=document.getElementById("question").value;
+            let meemail=document.getElementById("menteeEmail").value;
             let m=document.getElementById("view-pop");
             let close1=document.getElementById("close1");
             m.style.display="flex";
             close1.onclick=function(){
                 m.style.display="none";
             }                 
-            document.getElementById("mename").innerHTML=mname;
-            document.getElementById("sdate").innerHTML=dt;
-            document.getElementById("field").innerHTML=fname;
-            
+            document.getElementById("seId").innerHTML=sId;
+            document.getElementById("MentId").innerHTML=mId;
+            document.getElementById("MenteId").innerHTML=meId;
+            document.getElementById("Qns").innerHTML=qn;
+            document.getElementById("mentEmail").innerHTML=meemail;
             
             }  
