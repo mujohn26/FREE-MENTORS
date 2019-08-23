@@ -20,7 +20,7 @@ var call=(select_obj)=> {
       document.getElementById("field").innerHTML=x[2].innerHTML;
         }
 
-        var out=()=>{
+    var out=()=>{
 
             let sId=document.getElementById("sessionId").value;
             let mId=document.getElementById("mentorId").value;
@@ -38,5 +38,22 @@ var call=(select_obj)=> {
             document.getElementById("MenteId").innerHTML=meId;
             document.getElementById("Qns").innerHTML=qn;
             document.getElementById("mentEmail").innerHTML=meemail;
+
+
             
-            }  
+    }  
+    var admin=(row)=>{
+        let pop=document.getElementById("popup");
+        let close=document.getElementById("close");
+        let x=row.cells;
+        row.onclick=function(){
+          if(x[3].innerHTML=="Mentor"){
+          x[4].innerHTML="Changed to user";
+        
+      }
+        else{
+          x[4].innerHTML="Changed to mentor";
+        }
+
+          }
+        }
