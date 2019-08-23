@@ -1423,28 +1423,8 @@ right: -15px;
 cursor: pointer;
 }
 /*REQUEST MENTORSHIP*/
-.mentors-request{
-   
-    width:70%;
-    background:red;
-    height: 4.2in;
-    }
-    .header-main-request-mentors{
-        display:flex;
-        justify-content: center;
-        background:white;
-    
-    }
-    .request-box{
-        width: 20%;
-        height: 400px;
-        background:#272727;
-        margin: 5px;
-        padding: 50px;
 
-    }
-    
- 
+
     .request-mentor h2{
         color: white;
         text-align: center;
@@ -1454,12 +1434,16 @@ cursor: pointer;
         width: 90%;
         margin-bottom: 20px;
     }
-    .request-box input[type="text"],input[type="password"],input[type="date"]{
+    input[type="text"]{
     border: none;
     outline: none;
     height: 40px;
-    font-size: 18px;
-    }
+	font-size: 18px;
+	border-radius: 5px;
+	}
+	input::placeholder{
+		text-align: center;
+	}
     
    
     .placeholder-view{
@@ -1468,17 +1452,31 @@ cursor: pointer;
         font-size: 17px;
     }
     .button-view{
-        background:#6cc091;
-        padding: 6px 8px;
-        color:white;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 18px;
-        border-radius:5px;
-        box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
-        margin-top: 25px;
-        text-decoration: none;
-        transition: 0.4s; 
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		background-color: transparent;
+		box-shadow: inset 0 0 0 3px #6cc091;
+		color: #6cc091 !important;
+		border-radius: 30px;
+		border: 0;
+		cursor: pointer;
+		display: inline-block;
+		font-size: .75em;
+		font-weight: 400;
+		height: 3.2em;
+		line-height: 1.85em;
+		letter-spacing: 2px;
+		padding: 0 1em;
+		text-align: center;
+		text-decoration: none;
+		text-transform: uppercase;
+	
     
     }
     .view-pop{
@@ -1493,7 +1491,7 @@ cursor: pointer;
         text-align: inherit;
         }
     .view-pop-content{
-        height: 350px;
+        height: 400px;
         width: 300px;
         background:white;
         padding:20px;
