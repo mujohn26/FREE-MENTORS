@@ -1530,3 +1530,84 @@ cursor: pointer;
     color: white;
     }
 
+
+		#footer h3 {
+			color: #FFF;
+			margin-bottom: 2em !important;
+		}
+
+		#footer label {
+			text-align: left;
+			color: #FFF;
+		}
+
+		#footer .copyright {
+			color: rgba(255, 255, 255, 0.5);
+			font-size: 1em;
+			margin: 0 0 2em 0;
+			padding: 0;
+		}
+
+			#footer .copyright a {
+				color: rgba(255, 255, 255, 0.5);
+				text-decoration: none;
+			}
+
+				#footer .copyright a:hover {
+					color: #FFF;
+                }
+                
+
+                    .footer-social-icons ul li{
+                        display: inline-block;
+                        width: 50px;
+                        height: 50px;
+                        margin: 0px 10px;
+                        border-radius: 100%;
+                        background: #f06d06;
+                    
+                    }
+                    .footer-social-icons ul li a{
+                    color: #272727;
+                    font-size: 25px;
+                    display: block;
+                    }
+                    .footer-social-icons ul li a i{
+                    line-height: 50px;
+                    }
+
+
+
+		@media screen and (max-width: 980px) {
+
+			#footer {
+				padding: 4em 0;
+			}
+
+		}
+
+		@media screen and (max-width: 736px) {
+
+			#footer {
+				padding: 3em 0;
+			}
+
+		}
+.contact-us{
+height:500px ;
+display:flex;
+justify-content: center;
+background:white;
+}
+.lostpwdbox {
+	width: 200px;
+	height: 380px;
+	background: #272727;
+	margin: 5px;
+	padding: 50px;
+  }
+  .contact-text{
+	  width: 176px;
+	  height: 156px;
+  }
+
