@@ -985,3 +985,20 @@ color: black;
 			}
 
 		}
+.contact-us{
+height:500px ;
+display:flex;
+justify-content: center;
+background:white;
+}
+.lostpwdbox {
+	width: 200px;
+	height: 380px;
+	background: #272727;
+	margin: 5px;
+	padding: 50px;
+  }
+  .contact-text{
+	  width: 176px;
+	  height: 156px;
+  }
