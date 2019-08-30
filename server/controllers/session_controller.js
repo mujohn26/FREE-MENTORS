@@ -8,6 +8,7 @@ import User from './user_controller';
 import { getUserId, getUserEmail } from '../helpers/userInfo';
 
 const SessionsData = [];
+
 dotenv.config();
 
 class SessionController {
@@ -82,7 +83,6 @@ static AcceptSession = (req, res) => {
   });
 }
 
-
 // REJECT SESSION REQUEST
 
 static RejectSession = (req, res) => {
@@ -152,6 +152,7 @@ static createReview = (req, res) => {
     },
   });
 }
+
 }
 
 export default { SessionController, SessionsData };
