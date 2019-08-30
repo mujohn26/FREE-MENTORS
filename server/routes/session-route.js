@@ -13,5 +13,6 @@ const router = express.Router();
 router.post('/', validcreateSession, verifyUser, session_controller.SessionController.createSession);
 // accept session
 router.patch('/:sessionid/accept', verifyMentor, session_controller.SessionController.AcceptSession);
-
+// decline session
+router.patch('/:sessionid/reject', verifyMentor, session_controller.SessionController.RejectSession);
 export default router;

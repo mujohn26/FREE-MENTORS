@@ -83,6 +83,35 @@ static AcceptSession = (req, res) => {
     error: 'No sessions for you',
   });
 }
+
+
+// REJECT SESSION REQUEST
+
+static RejectSession = (req, res) => {
+  const idmentor = getUserId(req.header('x-auth-token'), res);
+  // eslint-disable-next-line radix
+  const { sessionid } = req.params;
+  // eslint-disable-next-line radix
+  const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid));
+  // checking for status of our session
+  if (!mentorAccept) {
+    return res.status(404).send({
+      status: 404,
+      error: `No session available with id ${sessionid}`,
+    });
+  }
+  if ((mentorAccept.status === 'pending') && mentorAccept.mentorid === idmentor) {
+    mentorAccept.status = 'rejected';
+    return res.status(200).send({
+      status: 200,
+      data: mentorAccept,
+    });
+  }
+  return res.status(404).send({
+    status: 404,
+    error: 'No sessions for you',
+  });
+}
 }
 
 export default { SessionController, SessionsData };
