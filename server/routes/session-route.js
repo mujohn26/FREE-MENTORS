@@ -4,15 +4,6 @@ import session_controller from '../controllers/session_controller';
 import { validcreateSession, validReviewMentor } from '../middleware/sessionValidator';
 import verify from '../middleware/autho';
 
-
-import { validcreateSession, validReviewMentor } from '../middleware/sessionValidator';
-import verify from '../middleware/autho';
-
-import { validcreateSession } from '../middleware/sessionValidator';
-import verify from '../middleware/autho';
-
-
-
 import verifymentor from '../middleware/verifyMentor';
 
 const { verifyMentor } = verifymentor;
@@ -26,9 +17,6 @@ router.post('/', validcreateSession, verifyUser, session_controller.SessionContr
 // accept session
 router.patch('/:sessionid/accept', verifyMentor, session_controller.SessionController.AcceptSession);
 
-
-// accept session
-router.patch('/:sessionid/accept', verifyMentor, session_controller.SessionController.AcceptSession);
 
 
 // Reveiw a mentor
