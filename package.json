@@ -12,7 +12,7 @@
   "scripts": {
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test": "nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
-    "start": "babel-node index.js",
+    "start": "babel-node server/index.js",
     "dev-start": "nodemon --exec babel-node server/index.js"
   },
   "dependencies": {
@@ -40,7 +40,7 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.0.3"
   },
   "devDependencies": {
     
