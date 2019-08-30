@@ -16,6 +16,7 @@ router.post('/', validcreateSession, verifyUser, session_controller.SessionContr
 
 // accept session
 router.patch('/:sessionid/accept', verifyMentor, session_controller.SessionController.AcceptSession);
-
+// decline session
+router.patch('/:sessionid/reject', verifyMentor, session_controller.SessionController.RejectSession);
 
 export default router;
