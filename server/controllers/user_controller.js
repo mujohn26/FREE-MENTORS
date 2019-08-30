@@ -134,6 +134,35 @@ class UserController {
     });
   }
 
+  // GET A SPECIFIC MENTOR
+
+  static specificMentor = (req, res) => {
+    const { mentorId } = req.params;
+    // eslint-disable-next-line radix
+    if (isNaN(mentorId)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Mentor id should be integer',
+      })
+    }
+    const mentor = users.find(u => u.id === parseInt(mentorId));
+    if (!mentor) {
+      return res.status(404).send({
+        status: 404,
+        error: 'No mentors available with that Id',
+      })
+    }
+    if (!mentor.is_Mentor) {
+      return res.status(404).send({
+        status: 404,
+        error: 'not yet a mentor',
+      })
+    }
+    return res.status(200).send({
+      status: 200,
+      data: mentor,
+    })
+  }
 }
 
 export default { UserController, users };
