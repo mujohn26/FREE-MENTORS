@@ -7,9 +7,7 @@ import SessionModel from '../models/session_model';
 import User from './user_controller';
 import { getUserId, getUserEmail } from '../helpers/userInfo';
 
-
 const SessionsData = [];
-
 
 dotenv.config();
 
@@ -84,7 +82,6 @@ static AcceptSession = (req, res) => {
     error: 'No sessions for you',
   });
 }
-
 
 // REJECT SESSION REQUEST
 
