@@ -117,6 +117,23 @@ class UserController {
       Message: 'User changed to a mentor successfully',
     })
   }
+
+  
+  // GET AVAILABLE ALL MENTORS
+  static AllMentors = (req, res) => {
+    const allMentors = users.filter(user => user.is_Mentor === true);
+    if (allMentors.length <= 0) {
+      return res.status(404).send({
+        status: 404,
+        message: 'No available mentors',
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      data: allMentors,
+    });
+  }
+
 }
 
 export default { UserController, users };
