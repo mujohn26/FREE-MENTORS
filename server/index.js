@@ -9,7 +9,6 @@ import status from './helpers/StatusCode';
 
 
 dotenv.config();
-console.log(`Our secret: ${process.env.freeMentors_jwtSecret}`);
 
 const app = express();
 app.use(bodyParse.json());
