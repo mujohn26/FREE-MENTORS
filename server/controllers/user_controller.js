@@ -92,6 +92,31 @@ class UserController {
          });
        }
      }
+
+     
+  // CHANGE USER TO A MENTOR
+  static changeMentee = (req, res) => {
+    const { userId } = req.params;
+    // eslint-disable-next-line radix
+    const user = users.find(u => u.id === parseInt(userId));
+    if (!user) {
+      return res.status(404).send({
+        status: 404,
+        error: `No user available with id ${userId}`,
+      })
+    }
+    if (user.is_Mentor) {
+      return res.status(404).send({
+        status: 404,
+        error: 'already a mentor',
+      })
+    }
+    user.is_Mentor = true;
+    return res.status(200).send({
+      status: 200,
+      Message: 'User changed to a mentor successfully',
+    })
+  }
 }
 
 export default { UserController, users };
