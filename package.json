@@ -10,8 +10,7 @@
   "author": "Mujohn",
   "license": "MIT",
   "scripts": {
-    "test:coverage":"jest --coverage",
-    "test:coveralls":"jest --coverage --coverageReporters=text-lcov | coveralls",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test": "nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
     "start": "babel-node index.js",
     "dev-start": "nodemon --exec babel-node server/index.js"
