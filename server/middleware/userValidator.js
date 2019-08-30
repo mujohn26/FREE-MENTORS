@@ -25,3 +25,23 @@ export const validsignUp = (req, res, next) => {
   next();
 };
 
+
+export const validSignin = (req, res, next) => {
+  // validation of Request payload
+  // using JOI npm
+  const schema = {
+    email: Joi.string().email().required(),
+    password: Joi.required(),
+  };
+  const result = Joi.validate(req.body, schema);
+
+  if (result.error !== null) {
+    res.status(400).send(
+      {
+        status: 400,
+        error: result.error.details[0].message,
+      },
+    );
+  }
+  next();
+};

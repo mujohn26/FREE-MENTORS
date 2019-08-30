@@ -63,7 +63,35 @@ class UserController {
        });
      };
 
+     // USER LOGIN
+     static signIn = (req, res) => {
+       try {
+         const isLogin = (email, password) => users.find(user => (user.email === email)
+       && ((user.password === password)));
+         const token = Token.generateToken(req.body.email, req.body.id);
+         if (isLogin(req.body.email, req.body.password)) {
+           return res.status(status.REQUEST_SUCCEDED).json({
+             status: status.REQUEST_SUCCEDED,
+             message: 'user signed in successfully',
+             data: {
+               token,
+             },
+           });
+         }
 
+         return res.status(status.UNAUTHORIZED).json({
+           status: status.UNAUTHORIZED,
+           error: 'Invalid Email or Password',
+         });
+       } catch (e) {
+         // Catch any error if it rises
+         return res.status(status.SERVER_ERROR).json({
+           status: status.SERVER_ERROR,
+           error: 'server error',
+           // e,
+         });
+       }
+     }
 }
 
 export default { UserController, users };

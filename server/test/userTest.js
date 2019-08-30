@@ -11,7 +11,7 @@ import users from '../models/users';
 
 const { expect } = chai;
 
- chai.use(chaiHttp);
+chai.use(chaiHttp);
 
 // Let's first grab the faked user info
 const fname = users[0].firstName;
@@ -128,3 +128,82 @@ describe('POST sign up with invalid email api/v1/auth/signup', () => {
   });
 });
 
+// ############ SIGNin TEST ############
+
+// Test for signin successful
+describe('POST signin successfully, api/v1/auth/signin', () => {
+  it('should return signin successfullty status', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(users[5])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEDED);
+        expect(res.body.data.token).to.be.a('string');
+        done();
+      });
+  });
+});
+
+// Test for credential incorrectness
+describe('POST signin failed, api/v1/auth/signin', () => {
+  it('should return signin error status', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send(users[6])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.UNAUTHORIZED);
+        expect(res.body.error).to.equal('Invalid Email or Password');
+        done();
+      });
+  });
+});
+
+// Test for email missing
+describe('POST signin with incomplete data, api/v1/auth/signin', () => {
+  it('should return email is required', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[7])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" is required');
+        done();
+      });
+  });
+});
+
+// Test for password missing
+describe('POST signin with incomplete data, api/v1/auth/signin', () => {
+  it('should return password is required', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[8])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"password" is required');
+        done();
+      });
+  });
+});
+
+// Test for sigin email validation
+describe('POST signin with invalid email, api/v1/auth/signin', () => {
+  it('should return email must be valid', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[9])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" must be a valid email');
+        done();
+      });
+  });
+});
