@@ -57,6 +57,7 @@ class SessionController {
     });
   }
 
+
 //  ACCEPT SESSION REQUEST
 static AcceptSession = (req, res) => {
   const idmentor = getUserId(req.header('x-auth-token'), res);
@@ -83,6 +84,7 @@ static AcceptSession = (req, res) => {
     error: 'No sessions for you',
   });
 }
+
 
 
 // REJECT SESSION REQUEST
@@ -112,6 +114,7 @@ static RejectSession = (req, res) => {
     error: 'No sessions for you',
   });
 }
+
 }
 
 export default { SessionController, SessionsData };
