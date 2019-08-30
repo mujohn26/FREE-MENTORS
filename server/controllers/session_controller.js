@@ -9,6 +9,7 @@ import { getUserId, getUserEmail } from '../helpers/userInfo';
 
 const SessionsData = [];
 
+
 dotenv.config();
 
 class SessionController {
@@ -110,6 +111,7 @@ static RejectSession = (req, res) => {
     error: 'No sessions for you',
   });
 }
+
 
 
 // REVIEW A MENTOR
