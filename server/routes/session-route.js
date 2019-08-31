@@ -18,7 +18,6 @@ router.post('/', validcreateSession, verifyUser, session_controller.SessionContr
 router.patch('/:sessionid/accept', verifyMentor, session_controller.SessionController.AcceptSession);
 
 
-
 // Reveiw a mentor
 router.post('/:sessionid/review', validReviewMentor, verifyUser, session_controller.SessionController.createReview);
 // decline session

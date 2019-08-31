@@ -1,0 +1,560 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions",
+		"version": "1.0.0",
+		"title": "FREE MENTORS",
+		"termsOfService": "http://swagger.io/terms/",
+		"contact": {
+			"email": "mujohn26@gmail.com"
+		},
+		"license": {
+			"name": "MIT",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"host": "localhost:3000",
+	"basePath": "/api/v1",
+	"tags": [
+		{
+			"name": "user",
+			"description":"signup,login,change user to mentor"
+		},
+		{
+			"name": "Mentor",
+			"description":"view all mentor,view specific mentor"
+		},
+		{
+			"name": "sessions",
+			"description":"request,accept,reject,review"
+
+		}
+	],
+	"schemes": [
+
+		"http"
+	],
+	"paths": {
+		"/auth/signup": {
+			"post": {
+				"tags": [
+					"user"
+				],
+				"summary": "Create user account",
+				"description": "this endpoint will will be used to create a new account",
+				"operationId": "adduser",
+				"consumes": [
+					"application/json",
+					"application/xml"
+				],
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "User object that nedded to create account",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/signup"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Account created succefully"
+					},
+					"400": {
+						"description": "bad request | Invalid input"
+					},
+					"409": {
+						"description": "User already exist"
+					},
+					"500": {
+						"description": "Server error"
+					}
+				}
+			}
+
+		},
+		"/auth/signin": {
+			"post": {
+				"tags": [
+					"user"
+				],
+				"summary": "user signin",
+				"description": "this endpoint a registered user can be able to sign in",
+				"operationId": "signin",
+				"consumes": [
+					"application/json",
+					"application/xml"
+				],
+				"produces": [
+					"application/json",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "user's object that is needed to sign in a user'",
+						"required": true,
+						"schema": {
+	 
+						"$ref": "#/definitions/signin"
+							
+						}
+					}
+					
+				],
+				"responses": {
+					"200": {
+						"description": "sign in successful"
+					},
+					"400": {
+						"description": "Bad request | invalid input"
+					},
+					"401": {
+						"description": "Incorrect credentials"
+					},		
+					"500": {
+						"description": "server error"
+					}			
+				}
+			}
+		},
+		"/auth/user/{id}": {
+			"patch": {
+				"tags": [
+					"user"
+				],
+				"summary": "change user to mentor",
+				"description": "at this endpoint admin will be able to change a user to mentor",
+				"operationId": "changeUser",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the use to change",
+						"required": true,
+						"type": "integer"
+
+					},
+					{
+						"name": "x-auth-token",
+						"in": "header",
+						"description": "the token of the admin to guarantee access to change user",
+						"required": true,
+						"type": "string"
+
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "user changed to a mentor"
+
+					},
+					"401": {
+						"description": "you are not an admin"
+					},
+					"404": {
+						"description": "not have access to server"
+					},
+					"500": {
+						"description": "server not found"
+					}
+				}
+				
+			}
+		},
+		"/mentors": {
+			"get": {
+				"tags": [
+					"Mentor"
+				],
+				"summary": "view all mentors",
+				"description": "at this endpoint user can view all mentors ",
+				"operationId": "viewmentor",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "x-auth-token",
+						"in": "header",
+						"description": "the token of the user or admin to view all mentors",
+						"required": true,
+						"type": "string"
+
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "all mentor",
+						"type":"object",
+						"example":{
+							
+								"id":"1",
+								"firstName": "mugiraneza",
+								"lastName": "john",
+								"email": "mujohn26@gmail.com",
+								"password": "mugiraneza",
+								"address": "kigali",
+								"bio": "born Nyagatare",
+								"occupation": "student",
+								"expertise": "tech"
+
+							  
+						}
+
+					},
+					"401": {
+						"description": "you are not a user"
+					},
+					"404": {
+						"description": "not have access to server"
+					},
+					"500": {
+						"description": "server not found"
+					}
+				}
+				
+			}
+		},
+		"/mentors/{id}": {
+			"get": {
+				"tags": [
+					"Mentor"
+				],
+				"summary": "return a specific mentor",
+				"description": "at this endpoint should return one mentor of the given id",
+				"operationId": "specificmentor",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id of the mentor",
+						"required": true,
+						"type": "integer"
+
+					},
+					{
+						"name": "x-auth-token",
+						"in": "header",
+						"description": "the token of the user to view that mentor",
+						"required": true,
+						"type": "string"
+
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "a mentor",
+						"schema":{
+							"type":"object"
+						}
+
+					},
+					"401": {
+						"description": "you are not an admin"
+					},
+					"404": {
+						"description": "not have access to server"
+					},
+					"500": {
+						"description": "server not found"
+					}
+				}
+				
+			}
+		},
+		"/sessions": {
+			"post": {
+				"tags": [
+					"sessions"
+				],
+				"summary": "create mentorship sessions",
+				"description": "at this endpoint user can request a mentorship session ",
+				"operationId": "createsessions",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "x-auth-token",
+						"in": "header",
+						"description": "the token of the user",
+						"required": true,
+						"type": "string"
+
+					},
+					{
+						"in": "body",
+						"name": "body",
+						"description": "request session object",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/sessions"
+						}
+
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "session created succefully"
+					},
+
+					"404": {
+						"description": "not have access to server"
+					},
+					"500": {
+						"description": "server not found"
+					}
+				}
+				
+			}
+		},
+		
+		"/sessions/{sessionId}/accept": {
+			"patch": {
+			 "tags": [
+			  "sessions"
+			 ],
+			 "summary": "A mentor can accept a mentorship session request.",
+			 "description": "",
+			 "operationId": "accept-session",
+			 "produces": [
+			  "application/xml",
+			  "application/json"
+			 ],
+			 "parameters": [
+			  {
+			   "name": "x-auth-token",
+			   "in": "header",
+			   "type": "string",
+			   "description": "The value to provide in the  header of API request"
+			  },
+			  {
+				  "name": "sessionId",
+				  "in": "path",
+				  "type": "string",
+				  "description": "Session Id to accept"
+			  }
+			 ],
+			 "responses": {
+				 "200": {
+				  "description": "Session request accepted"
+				 },
+				 "400": {
+					"description": "Bad Request - invalid inputs "
+				   },
+				 "401": {
+					 "description": "Unauthorized -  No token provided"
+					},       
+				 "403": {
+					 "description": "Not allowed to accept this session"
+					},
+				 "404": {
+					 "description": "Session not found"
+					}, 
+				 "500": {
+					"description": "Server error"
+				   }
+				}
+			}
+		   },
+		   "/sessions/{sessionId}/reject": {
+			"patch": {
+			 "tags": [
+			  "sessions"
+			 ],
+			 "summary": "A mentor can reject a mentorship session request.",
+			 "description": "",
+			 "operationId": "reject-session",
+			 "produces": [
+			  "application/xml",
+			  "application/json"
+			 ],
+			 "parameters": [
+			  {
+			   "name": "x-auth-token",
+			   "in": "header",
+			   "type": "string",
+			   "description": "The value to provide in the  header of API request"
+			  },
+			  {
+				"name": "sessionId",
+				"in": "path",
+				"type": "string",
+				"description": "Session Id to reject"
+			  }
+			 ],
+			 "responses": {
+				 "200": {
+				  "description": "Session request rejected"
+				 },
+				 "400": {
+					"description": "Bad Request - invalid inputs "
+				   },
+				 "401": {
+					 "description": "Unauthorized -  No token provided"
+					},       
+				 "403": {
+					 "description": "Not allowed to reject this session"
+					},
+				 "404": {
+					 "description": "Session not found"
+					}, 
+				 "500": {
+					"description": "Server error"
+				   }
+				}
+			}
+		   }, 
+		   "/sessions/{sessionid}/review": {
+			"post": {
+				"tags": [
+					"sessions"
+				],
+				"summary": "review mentor after mentorship sessions",
+				"description": "at this endpoint user can review mentor after a mentorship session ",
+				"operationId": "reviewmentor",
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "x-auth-token",
+						"in": "header",
+						"description": "the token of the user",
+						"required": true,
+						"type": "string"
+
+					},
+					{
+						"name": "sessionid",
+						"in": "path",
+						"type": "string",
+						"description": "Session Id done"
+					  },
+					{
+						"in": "body",
+						"name": "body",
+						"description": "request session object",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/review"
+						}
+
+					}
+
+				],
+				"responses": {
+					"200": {
+						"description": "review created succefully"
+					},
+
+					"404": {
+						"description": "not have access to server"
+					},
+					"500": {
+						"description": "server not found"
+					}
+				}
+				
+			}
+		}
+		
+	},
+
+	"definitions": {
+		"signin": {
+			"type": "object",
+			"properties": {
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+
+			},
+			"xml": {
+				"name": "User"
+			}
+		},
+		
+		"signup": {
+			"type": "object",
+			"properties": {
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				},
+				"address": {
+					"type": "string"
+				},
+				"bio":      {
+					"type": "string"	
+				},
+				"occupation": {
+					"type": "string"
+				},
+				"expertise": {
+					"type": "string"
+				}
+			},
+			"xml": {
+				"name": "User"
+			}
+		},
+		"sessions": {
+			"type": "object",
+			"properties": {
+				"mentorid": {
+					"type": "integer"
+				},
+				"questions": {
+					"type": "string"
+				}
+
+			}
+
+		},
+		"review": {
+			"type": "object",
+			"properties": {
+				"score": {
+					"type": "integer"
+				},
+				"remark": {
+					"type": "string"
+				}
+
+			}
+
+		}
+
+
+	},
+	"externalDocs": {
+		"description": "Find out more about Swagger",
+		"url": "http://swagger.io"
+	}
+}
