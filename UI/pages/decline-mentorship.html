@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Decline</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../css/main.css" />
+        <script type="text/javascript" src="../js/popup.js"></script>
+        <link rel="stylesheet" href="../css/fontawesome/css/all.css">
+	    </head>
+	   <body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+			<div class="inner">
+			<a href="index.html" class="logo">Free Mentors</a>
+			
+               
+                <div class="user-profile">
+                <span><i class="far fa-user"></i> Profile</span>
+                <div class="name">
+                <p><a href="#">John MUGIRANEZA</a></p>
+                <p><a href="#">View Profile</a></p>
+                <p><a href="#">Help</a></p>
+                <p><a href="../index.html">Logout</a></p>
+                </div>
+                </div>
+          
+
+               
+			
+			
+           </div>
+
+			</header>
+            <!--MAIN-->
+
+<div class="header-main-view-mentors">
+    <div class="view-mentor1">
+    
+        <p><i class="fas fa-user-tie"></i>View Users</p>
+    </div >
+    <div class="view-mentor2">
+    
+        <h2>Available Requests</h2>
+        
+        <div class="mentors-table">
+        <table id="table">
+        <tr>
+        <th>UserName</th>
+        <th>Date</th>
+        <th>Session</th>
+        <th>Action</th>
+                                              
+        </tr>
+        <tr onclick="showRow(this);">
+        <td>John</td>
+        <td>2019-09-09</td>
+        <td>Business</td>
+        
+        <td><a href="#" id="view"> Decline/Accept </a></td>
+        </tr>
+        <tr  onclick="showRow(this);">
+        <td>Lois</td>
+        <td>2019-09-09</td>
+        <td>Education</td>
+        <td><a href="#" id="view">Decline/Accept </a></td>
+        </tr>
+        <tr  onclick="showRow(this);">
+        <td>Joe</td>
+        <td>2019-09-09</td>
+        <td>health care</td>
+        <td><a href="#" id="view">Decline/Accept </a></td>
+        </tr>
+        <tr  onclick="showRow(this);">
+        <td>Cleveland</td>
+        <td>2019-09-09</td>
+        <td>Education</td>
+        <td><a href="#" id="view" > Decline/Accept</a></td>
+        </tr>
+        </table>
+        </div>
+        </div>       
+    </div>   
+    <div class="popup" id="popup">
+
+        <div class="popup-content">
+        <h2>INFORMATION</h2>
+        <img src="../img/close.png" id="close" class="close">
+        <p>Session id:<span id="sId"></span></p>
+        <p>UserName:<span id="fname"></span></p>
+        <p>Start Date:<span id="lname"></span></p>
+        <p>Session:<span id="field"></span></p><br>
+        <a href="#" class="button-view">Decline</a>
+        <a href="accept-request.html" class="button-view">Accept</a>
+        </div>        
+        </div>v>
+		<!-- Footer -->
+        <footer id="footer">
+       <div class="inner">
+      <h3>Get in touch</h3>
+      <ul class="icons">
+       
+      <li><i class="fab fa-facebook fa-2x" ></i><a href="#" ><span >Facebook</span></a></li>
+      <li> <i  class="fab fa-twitter-square fa-2x"></i><a href="#">Twitter</a></li>
+      <li> <i  class="fab fa-linkedin fa-2x"></i><a href="#">LinkedIn</a></li>
+
+   </ul>
+    <div class="copyright">
+    &copy; Free Mentors All right reserved || Designed By <a >John MUGIRANEZA</a>. 
+    </div>
+
+    </div>
+    </footer>
+	</body>
+</html>
