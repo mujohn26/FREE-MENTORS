@@ -925,9 +925,10 @@ z-index: -1111;
 /* Footer */
 
 #footer {
-  background: #272727;
+  background:rgba(75, 75, 93, 0.85);
   color: #fff;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 #footer h3 {
