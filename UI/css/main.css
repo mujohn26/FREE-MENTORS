@@ -925,6 +925,8 @@ z-index: -1111;
 /* Footer */
 
 #footer {
+
+  bottom: 2;
   background:rgba(75, 75, 93, 0.85);
   color: #fff;
   text-align: center;
@@ -1679,4 +1681,11 @@ background:white;
     text-transform: uppercase;
     white-space: nowrap;
     
+  }
+  .container-page{
+    position: relative;
+    min-height: 100vh;
+  }
+  .container-wrap{
+    padding-bottom: 2.5rem;
   }
