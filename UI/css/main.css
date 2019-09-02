@@ -594,10 +594,7 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
 button:hover,
-
 .button:hover,.pop-button:hover,.login-button:hover {
- {
-
   background-color: rgba(108, 192, 145, 0.15);
 }
 
@@ -931,7 +928,7 @@ z-index: -1111;
   background:rgba(75, 75, 93, 0.85);
   color: #fff;
   text-align: center;
-  margin-bottom: 10px;
+
 }
 
 #footer h3 {
@@ -1652,7 +1649,6 @@ background:white;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
-
   }
   .login-button{
     -moz-appearance: none;
@@ -1682,5 +1678,4 @@ background:white;
     text-transform: uppercase;
     white-space: nowrap;
     
-
   }
