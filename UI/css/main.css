@@ -1269,6 +1269,7 @@ tr:nth-of-type(odd) {
 
   table a {
     text-decoration: none;
+    color:#35ee85;
 
   }
 th { 
@@ -1353,7 +1354,7 @@ and also iPads specifically.
   padding: 20px;
   margin: 20px;
   cursor: pointer;
-  color: black;
+  color: white;
   text-align: left;
 }
 
@@ -1679,4 +1680,5 @@ background:white;
     text-transform: uppercase;
     white-space: nowrap;
 
+    
   }
