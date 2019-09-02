@@ -357,11 +357,6 @@ article.wrapper article header {
   }
 }
 
-/* Form */
-
-/* Box */
-
-/* Icon */
 
 /* Image */
 
@@ -592,9 +587,11 @@ input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
 button:hover,
+
 .button:hover,
 .pop-button:hover,
 .login-button:hover {
+
   background-color: rgba(108, 192, 145, 0.15);
 }
 
@@ -692,10 +689,7 @@ button:hover,
   cursor: pointer;
   display: none;
 }
-#chk {
-  visibility: hidden;
-  z-index: -1111;
-}
+
 
 @media screen and (max-width: 736px) {
   #header a {
@@ -921,13 +915,14 @@ button:hover,
 
 #footer {
   background:rgba(75, 75, 93, 0.85);
-  color: aliceblue;
+  color:white;
   text-align: center;
   display: block;
   bottom:0px;
   width:100%;
   height:230px;
   padding-top: 10px;
+
 }
 
 #footer h3 {
@@ -1039,6 +1034,7 @@ input[type="password"] {
   font-size: 18px;
 }
 .login-link a {
+
   font-size: 17px;
   line-height: 20px;
   color: white;
@@ -1046,7 +1042,7 @@ input[type="password"] {
 .loginbox a:hover {
   color: white;
 }
-======= .header-main-login {
+ .header-main-login {
   display: flex;
   justify-content: center;
   background: white;
@@ -1096,6 +1092,7 @@ input[type="password"] {
   font-size: 18px;
 }
 .login-link {
+
   font-size: 17px;
   line-height: 20px;
   color: white;
@@ -1103,6 +1100,75 @@ input[type="password"] {
 .loginbox a:hover {
   color: white;
 }
+
+
+.header-main-login{
+    display:flex;
+    justify-content: center;
+    background:white;
+  
+    }
+
+
+    .loginbox{
+        width: 200px;
+        height: 400px;
+        background:#272727;
+        margin: 5px;
+        padding: 50px;
+    }
+    .lostpwdbox{
+        width: 200px;
+        height: 300px;
+        background:#272727;
+        margin: 5px;
+        padding: 50px; 
+    }
+    .login-img{
+        display: flex;
+        justify-content: center;
+    
+    }
+    .login-title{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 28px;
+    color: white;
+    
+    }
+    .loginbox p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 22px;
+    color: white;
+    
+    }
+    .loginbox input{
+        width: 100%;
+        margin-bottom: 20px;
+        
+    
+    }
+    .loginbox input[type="text"],input[type="password"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    font-size: 18px;
+   
+    }
+    .login-link{
+  
+        font-size: 17px;
+        line-height: 20px;
+        color: white;
+    }
+    .loginbox a:hover{
+      color:white;
+    
+    }
+
 
 /* SIGN UP PAGE */
 .header-main-signup {
@@ -1218,32 +1284,7 @@ input[type="password"] {
   display: flex;
   align-content: center;
 }
-/*
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-table a {
-  text-decoration: none;
-}
-th,
-td {
-  text-align: left;
-  padding: 6px;
-  font-size: 22px;
-}
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-tr:hover {
-  background: rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-}
-th {
-  background-color: #272727;
-  color: white;
-}
-*/
+
 
 table {
   width: 100%;
@@ -1252,9 +1293,16 @@ table {
 }
 
 /* Zebra striping */
+
 tr:nth-of-type(odd) {
   background: #eee;
 }
+
+tr:nth-of-type(odd) { 
+	background: #eee; 
+	}
+
+ 
 
 table a {
   text-decoration: none;
@@ -1424,6 +1472,19 @@ and also iPads specifically.
   top: -15px;
   right: -15px;
   cursor: pointer;
+  text-align:left;
+}
+
+  
+
+.close{
+position: absolute;
+height: 50px;
+width: 50px;
+top: -15px;
+right: -15px;    
+cursor: pointer;
+
 }
 /*REQUEST MENTORSHIP*/
 
@@ -1432,9 +1493,182 @@ and also iPads specifically.
   text-align: center;
 }
 
-.request-box input {
-  width: 90%;
-  margin-bottom: 20px;
+
+
+    .request-mentor h2{
+        color: white;
+        text-align: center;
+    }
+    
+    .request-box input{
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    input[type="text"],input[type="password"]{
+    border: none;
+    outline: none;
+    height: 40px;
+	font-size: 18px;
+	border-radius: 5px;
+	}
+	input::placeholder{
+		text-align: center;
+	}
+    
+   
+    .placeholder-view{
+        width: 100%;
+        height: 60px;
+        font-size: 17px;
+    }
+    .button-view{
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		background-color: transparent;
+		box-shadow: inset 0 0 0 3px #6cc091;
+		color: #6cc091 !important;
+		border-radius: 30px;
+		border: 0;
+		cursor: pointer;
+		display: inline-block;
+		font-size: .75em;
+		font-weight: 400;
+		height: 3.2em;
+		line-height: 1.85em;
+		letter-spacing: 2px;
+		padding: 0 1em;
+		text-align: center;
+		text-decoration: none;
+		text-transform: uppercase;
+	
+    
+    }
+    .view-pop{
+        background: rgba(0, 0, 0, 0.6);
+        width:100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        display:none;
+        justify-content: center;
+        align-items: center;
+        text-align: inherit;
+        }
+    .view-pop-content{
+        height: 400px;
+        width: 300px;
+        background:white;
+        padding:20px;
+        position: relative;
+        border-radius: 5px;   
+            }
+    .view-pop-content h3{
+        color: black;
+    }
+    .view-pop-content p{
+        font-weight: bold;
+        text-decoration: none;
+        text-align:left;
+    }
+    .view-mentor1 a{
+        color: white;
+        text-align: center;
+    }
+    /* ADMIN PANEL */
+    .view-admin1{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        padding: 30px;
+        background:#272727 ;
+        
+        color: white;
+        font-size: 22px;
+        height: 100%;
+    }
+    .view-admin1 img{
+        height: 20px;
+    }
+    .view-admin1 a{
+    text-decoration: none;
+    color: white;
+    }
+
+
+		#footer h3 {
+			color: #FFF;
+			margin-bottom: 2em !important;
+		}
+
+		#footer label {
+			text-align: left;
+			color: #FFF;
+		}
+
+		#footer .copyright {
+			color: rgba(255, 255, 255, 0.5);
+			font-size: 1em;
+			margin: 0 0 2em 0;
+			padding: 0;
+		}
+
+			#footer .copyright a {
+				color: rgba(255, 255, 255, 0.5);
+				text-decoration: none;
+			}
+
+				#footer .copyright a:hover {
+					color: #FFF;
+                }
+                
+
+                    .footer-social-icons ul li{
+                        display: inline-block;
+                        width: 50px;
+                        height: 50px;
+                        margin: 0px 10px;
+                        border-radius: 100%;
+                        background: #f06d06;
+                    
+                    }
+                    .footer-social-icons ul li a{
+                    color: #272727;
+                    font-size: 25px;
+                    display: block;
+                    }
+                    .footer-social-icons ul li a i{
+                    line-height: 50px;
+                    }
+
+
+
+		@media screen and (max-width: 980px) {
+
+			#footer {
+				padding: 4em 0;
+			}
+
+		}
+
+		@media screen and (max-width: 736px) {
+
+			#footer {
+				padding: 3em 0;
+			}
+
+		}
+.contact-us{
+height:500px ;
+display:flex;
+justify-content: center;
+background:white;
+
 }
 input[type="text"],
 input[type="password"],input[type="email"] {
@@ -1449,32 +1683,7 @@ input[type="password"],input[type="email"] {
   height: 60px;
   font-size: 17px;
 }
-.button-view {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  background-color: transparent;
-  box-shadow: inset 0 0 0 3px #6cc091;
-  color: #6cc091 !important;
-  border-radius: 30px;
-  border: 0;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 0.75em;
-  font-weight: 400;
-  height: 3.2em;
-  line-height: 1.85em;
-  letter-spacing: 2px;
-  padding: 0 1em;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-}
+
 .view-pop {
   background: rgba(0, 0, 0, 0.6);
   width: 100%;
@@ -1579,6 +1788,7 @@ input[type="password"],input[type="email"] {
   #footer {
     padding: 3em 0;
   }
+
 }
 .contact-us {
   height: 500px;
@@ -1661,3 +1871,4 @@ input[type="password"],input[type="email"] {
 .container-wrap {
   padding-bottom: 2.5rem;
 }
+
