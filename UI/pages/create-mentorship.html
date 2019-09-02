@@ -1,92 +1,89 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <html>
-	<head>
-		<title>Request mentorship</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="../css/main.css" />
-        <script type="text/javascript" src="../js/popup.js"></script>
-        <link rel="stylesheet" href="../css/fontawesome/css/all.css">
-	</head>
-	<body class="subpage">
+  <head>
+    <title>Request mentorship</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <script type="text/javascript" src="../js/popup.js"></script>
+    <link rel="stylesheet" href="../css/fontawesome/css/all.css" />
+  </head>
+  <body class="subpage">
+    <!-- Header -->
+    <header id="header">
+      <div class="inner">
+        <a href="index.html" class="logo">Free Mentors</a>
+        <div class="user-profile">
+          <span><i class="far fa-user"></i> Profile</span>
+          <div class="name">
+            <p><a href="#">John MUGIRANEZA</a></p>
+            <p><a href="#">View Profile</a></p>
+            <p><a href="#">Help</a></p>
+            <p><a href="../index.html">Logout</a></p>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="header-main-login">
+      <div class="loginbox">
+        <div>
+          <h1 class="login-title">REQUEST</h1>
+          <form>
+            <input
+              id="SessionId"
+              type="text"
+              placeholder="Session Id..."
+              required
+            />
+            <input id="MentorId" type="text" placeholder="Mentor Id" required />
+            <input id="MenteeId" type="text" placeholder="Mentee Id" required />
 
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="index.html" class="logo">Free Mentors</a>
-					<div class="user-profile">
-                            <span><i class="far fa-user"></i> Profile</span>
-                            <div class="name">
-                            <p><a href="#">John MUGIRANEZA</a></p>
-                            <p><a href="#">View Profile</a></p>
-                            <p><a href="#">Help</a></p>
-                            <p><a href="../index.html">Logout</a></p>
-                            </div>
-                            </div>
-                      
-					
-				</div>
-			</header>
-            <div  class="header-main-login">
-                    <div class="loginbox">
+            <input
+              id="MenteeEmail"
+              type="text"
+              placeholder="Mentee Email"
+              required
+            />
+            <input id="question" type="text" placeholder="questions" required />
 
-                    <div >
-                    <h1 class="login-title">REQUEST</h1>
-                    <form>
-                    <input id="mentorName" type="text" placeholder="Mentor Name..." required> 
-                    <input id="fieldName" type="text" placeholder="Field Name..." required>
-                    <input id="startDate" type="date" placeholder="... Start Date" required>
-                    <textarea class="placeholder-view" placeholder="Describe yourself here..."></textarea><br>
-                    <a href="#"class="button-view" onclick="out()">Accept</a>
-                    <a href="view-mentors.html" class="button-view">Back</a>
-                    </form>
-                    </div>
-                    </div>
-                    <div class="view-pop" id="view-pop">
+            <a href="#" class="login-button" onclick="out()">Accept</a><br />
+          </form>
+        </div>
+      </div>
+      <div class="view-pop" id="view-pop">
+        <div class="view-pop-content">
+          <h2>Please Comfirm</h2>
+          <img src="../img/close.png" id="close1" class="close" />
+          <p>Seession Id:<span id="sessionid"></span></p>
+          <p>Mentor Id:<span id="mentorid"></span></p>
+          <p>Mentee id:<span id="menteeid"></span></p>
+          <p>Mentee email:<span id="menteeemail"></span></p>
+          <p>questions:<span id="qn"></span></p>
+          <a href="login-page.html" class="pop-button">Comfirm</a>
+        </div>
+      </div>
+    </div>
 
-                            <div class="view-pop-content">
-                            <h2>Please Comfirm</h2>
-                            <img src="../img/close.png" id="close1" class="close">
-                            <p>Mentor Name:<span id="mename"></span></p>
-                            <p>Start Date:<span id="sdate"></span></p>
-                            <p>Field:<span id="field"></span></p>
-                            <a href="login-page.html" class="pop-button">Comfirm</a>
-                            </div>        
-                            </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                            
-                    </div>
-                    
-                                        
-
-		<!-- Footer -->
-        <footer id="footer">
-       <div class="inner">
-
-      <h3>Get in touch</h3>
-      <ul class="icons">
-       
-          <li><i class="fab fa-facebook fa-2x" ></i><a href="#" ><span >Facebook</span></a></li>
-          <li> <i  class="fab fa-twitter-square fa-2x"></i><a href="#">Twitter</a></li>
-         
-
+    <!-- Footer -->
+    <footer id="footer">
+      <div class="inner">
+        <h3>Get in touch</h3>
+        <ul class="icons">
+          <li>
+            <i class="fab fa-facebook fa-2x"></i
+            ><a href="#"><span>Facebook</span></a>
+          </li>
+          <li>
+            <i class="fab fa-twitter-square fa-2x"></i><a href="#">Twitter</a>
+          </li>
         </ul>
 
-            
-
         <div class="copyright">
-      &copy; Free Mentors All right reserved || Designed By <a >John MUGIRANEZA</a>. 
-       </div>
-
-            </div>
-        </footer>
-
-
-	</body>
+          &copy; Free Mentors All right reserved || Designed By
+          <a>John MUGIRANEZA</a>.
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
