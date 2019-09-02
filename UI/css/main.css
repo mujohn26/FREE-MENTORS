@@ -925,8 +925,6 @@ z-index: -1111;
 /* Footer */
 
 #footer {
-
-  bottom: 2;
   background:rgba(75, 75, 93, 0.85);
   color: #fff;
   text-align: center;
@@ -1049,7 +1047,7 @@ input[type="password"] {
 .loginbox a:hover {
   color: white;
 }
-=======
+
 .header-main-login{
     display:flex;
     justify-content: center;
@@ -1652,6 +1650,7 @@ background:white;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
+
   }
   .login-button{
     -moz-appearance: none;
@@ -1680,12 +1679,6 @@ background:white;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
+
     
-  }
-  .container-page{
-    position: relative;
-    min-height: 100vh;
-  }
-  .container-wrap{
-    padding-bottom: 2.5rem;
   }
