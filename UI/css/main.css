@@ -1047,7 +1047,7 @@ input[type="password"] {
 .loginbox a:hover {
   color: white;
 }
-=======
+
 .header-main-login{
     display:flex;
     justify-content: center;
@@ -1649,6 +1649,7 @@ background:white;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
+
   }
   .login-button{
     -moz-appearance: none;
@@ -1677,5 +1678,5 @@ background:white;
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
-    
+
   }
