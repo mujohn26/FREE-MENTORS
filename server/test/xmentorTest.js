@@ -32,7 +32,7 @@ describe('GET Both Admin and Users can see all mentors, api/v1/mentors', () => {
         expect(res.body.data[0].id).to.equal(1);
         expect(res.body.data[0].firstName).to.equal('murengezi');
         expect(res.body.data[0].lastName).to.equal('aime');
-        expect(res.body.data[0].is_Mentor).to.equal(true);
+        expect(res.body.data[0].isMentor).to.equal(true);
         expect(res.status).to.equal(status.REQUEST_SUCCEDED);
         done();
       });
@@ -67,7 +67,7 @@ describe('GET View specifc mentor with an id not an integer', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('Mentor id should be integer');
+        expect(res.body.message).to.equal('Mentor id should be integer');
         expect(res.status).to.equal(status.BAD_REQUEST);
         done();
       });
@@ -83,7 +83,7 @@ describe('GET view specific , api/v1/mentors', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.NOT_FOUND);
-        expect(res.body.error).to.equal('No mentors available with that Id');
+        expect(res.body.message).to.equal('No mentors available with that Id');
         expect(res.status).to.equal(status.NOT_FOUND);
         done();
       });
@@ -99,7 +99,7 @@ describe('GET user with invalid token, api/v1/mentors', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.UNAUTHORIZED);
-        expect(res.body.error).to.equal('You are not a user');
+        expect(res.body.message).to.equal('You are not a user');
         done();
       });
   });

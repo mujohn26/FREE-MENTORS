@@ -26,13 +26,15 @@ class SessionController {
     if (!isMentor) {
       return res.status(404).send({
         status: 404,
-        error: `No mentor available with id ${req.body.mentorid}`,
+        message: `No mentor available with id ${req.body.mentorid}`,
+        data: [],
       });
     }
-    if (!isMentor.is_Mentor) {
+    if (!isMentor.isMentor) {
       return res.status(404).send({
         status: 404,
-        error: 'the the requested Id is not a mentor',
+        message: 'the the requested Id is not a mentor',
+        data: [],
       });
     }
     SessionsData.push(newSession);
@@ -57,19 +59,22 @@ static AcceptSession = (req, res) => {
   if (!mentorAccept) {
     return res.status(404).send({
       status: 404,
-      error: `No session available with id ${sessionid}`,
+      message: `No session available with id ${sessionid}`,
+      data: [],
     });
   }
   if (mentorAccept.status === 'pending' && mentorAccept.mentorid === idmentor) {
     mentorAccept.status = 'accepted';
     return res.status(200).send({
       status: 200,
+      message: 'succeed',
       data: mentorAccept,
     });
   }
   return res.status(404).send({
     status: 404,
-    error: 'No sessions for you',
+    message: 'No sessions for you',
+    data: [],
   });
 }
 
@@ -80,19 +85,22 @@ static RejectSession = (req, res) => {
   if (!mentorAccept) {
     return res.status(404).send({
       status: 404,
-      error: `No session available with id ${sessionid}`,
+      message: `No session available with id ${sessionid}`,
+      data: [],
     });
   }
   if ((mentorAccept.status === 'pending') && mentorAccept.mentorid === idmentor) {
     mentorAccept.status = 'rejected';
     return res.status(200).send({
       status: 200,
+      message: 'succeed',
       data: mentorAccept,
     });
   }
   return res.status(404).send({
     status: 404,
-    error: 'No sessions for you',
+    message: 'No sessions for you',
+    data: [],
   });
 }
 
@@ -107,28 +115,32 @@ static createReview = (req, res) => {
   if (mentorReview.menteeId !== menteeId) {
     return res.status(404).send({
       status: 404,
-      error: 'No sessions with that id',
+      message: 'No sessions with that id',
+      data: [],
     });
   }
   if (mentorReview.status === 'pending') {
     return res.status(404).send({
       status: 404,
-      error: 'Your session still pending....',
+      message: 'Your session still pending....',
+      data: [],
     });
   }
   if (mentorReview.status === 'rejected') {
     return res.status(404).send({
       status: 404,
-      error: 'Your session have rejected',
+      message: 'Your session have rejected',
+      data: [],
     });
   }
 
   return res.status(200).send({
     status: 200,
+    message: 'succeed',
     data: {
       sessionid,
-      mentor_id: mentorReview.mentorid,
-      mentee_id: menteeId,
+      mentorId: mentorReview.mentorid,
+      menteId: menteeId,
       Score: score,
       MenteeFullName: menteeName,
       remark,

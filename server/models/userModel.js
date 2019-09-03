@@ -1,22 +1,23 @@
 
 import dotenv from 'dotenv';
+import encryptedPassword from '../helpers/Encryptor';
 
 dotenv.config();
 
 class User {
   constructor(id, firstName, lastName, email, password,
-    address, bio, occupation, expertise, is_Mentor, is_admin) {
+    address, bio, occupation, expertise, isMentor, isAdmin) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.password = password;
+    this.password = encryptedPassword(password);
     this.address = address;
     this.bio = bio;
     this.occupation = occupation;
     this.expertise = expertise;
-    this.is_admin = is_admin;
-    this.is_Mentor = is_Mentor;
+    this.isAdmin = isAdmin;
+    this.isMentor = isMentor;
   }
 
 

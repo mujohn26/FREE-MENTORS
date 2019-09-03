@@ -22,10 +22,8 @@ chai.use(chaiHttp);
 // ############ MENTOR TEST ############
 const meId = sessions[0].mentorid;
 const qns = sessions[0].questions;
-// Create a true token for testing
 const token = generateToken.generateToken(1, users[0].email, false, true);
-// Create a token with invalid user
-const mentortoken = generateToken.generateToken(1, users[0].email, true, false)
+const mentortoken = generateToken.generateToken(1, users[0].email, true, false);
 const Invalidtoken = generateToken.generateToken(1, 'kkjkshj@gmail.com', false, true);
 describe('POST User can request mentorship, api/v1/sessions', () => {
   it('should create a mentorship session successfully', (done) => {
@@ -37,7 +35,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.RESOURCE_CREATED);
-        expect(res.status).to.equal(status.RESOURCE_CREATED);
+        expect(res.body.message).to.equal('session was created');
         expect(res.body.data.mentorid).to.equal(meId);
         expect(res.body.data.questions).to.equal(qns);
         done();

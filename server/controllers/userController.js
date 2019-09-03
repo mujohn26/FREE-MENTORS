@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import User from '../models/userModel';
 import status from '../helpers/StatusCode';
 import Token from '../helpers/tokens';
+import comparePassword from '../helpers/decryptor';
 
 
 const users = [
@@ -16,8 +17,8 @@ const users = [
     bio: 'mugiraneza',
     occupation: 'mugiraneza',
     expertise: 'umute',
-    is_admin: false,
-    is_Mentor: true,
+    isAdmin: false,
+    isMentor: true,
   },
 ];
 
@@ -27,29 +28,29 @@ class UserController {
        const id = users.length + 1;
        const isEmailTaken = users.find(user => user.email === req.body.email);
        if (isEmailTaken) {
-         return res.status(409).send({ status: 409, error: `${req.body.email} is already taken!, Give it another try different email.` });
+         return res.status(409).send({ status: status.REQUEST_CONFLICT, message: `${req.body.email} is already taken!`, data: [] });
        }
-       let { is_Mentor, is_admin } = req.body;
-       if (is_Mentor === undefined) { is_Mentor = false; }
-       if (is_admin === undefined) { is_admin = false; }
+       let { isMentor, isAdmin } = req.body;
+       if (isMentor === undefined) { isMentor = false; }
+       if (isAdmin === undefined) { isAdmin = false; }
        const user = new User(
          id, req.body.firstName, req.body.lastName,
-         req.body.email, req.body.password, req.body.address, req.body.bio, req.body.occupation,
-         req.body.expertise, is_Mentor, is_admin,
+         req.body.email, req.body.password, req.body.address, req.body.bio, req.body.occupation, 
+         req.body.expertise, isMentor, isAdmin,
        );
 
        if (user.is_Mentor === undefined) { user.is_Mentor = false; }
-       const token = Token.generateToken(user.id, user.email, is_Mentor, is_admin);
+       const token = Token.generateToken(user.id, user.email, isMentor, isAdmin);
 
        users.push(user);
        return res.status(201).json({
-         status: 201,
+         status: status.RESOURCE_CREATED,
          message: 'user Registered successfully',
          data: {
            token,
            id: user.id,
-           first_Name: user.firstName,
-           last_Name: user.lastName,
+           firstName: user.firstName,
+           lastName: user.lastName,
            email: user.email,
            address: user.address,
            occupation: user.occupation,
@@ -62,8 +63,8 @@ class UserController {
      static signIn = (req, res) => {
        try {
          const isLogin = (email, password) => users.find(user => (user.email === email)
-       && ((user.password === password)));
-         const token = Token.generateToken(req.body.email, req.body.id);
+       && ((comparePassword(password, user.password))));
+         const token = Token.generateToken(req.body.email, users.id);
          if (isLogin(req.body.email, req.body.password)) {
            return res.status(status.REQUEST_SUCCEDED).json({
              status: status.REQUEST_SUCCEDED,
@@ -76,7 +77,8 @@ class UserController {
 
          return res.status(status.UNAUTHORIZED).json({
            status: status.UNAUTHORIZED,
-           error: 'Invalid Email or Password',
+           message: 'Invalid Email or Password',
+           data: [],
          });
        } catch (e) {
          return res.status(status.SERVER_ERROR).json({
@@ -92,35 +94,42 @@ class UserController {
     const user = users.find(u => u.id === parseInt(userId));
     if (!user) {
       return res.status(404).send({
-        status: 404,
-        error: `No user available with id ${userId}`,
+        status: status.NOT_FOUND,
+        message: `No user available with id ${userId}`,
+        data: [],
       });
     }
     if (user.is_Mentor) {
       return res.status(404).send({
-        status: 404,
-        error: 'already a mentor',
+        status: status.NOT_FOUND,
+        message: 'already a mentor',
+        data: [],
       });
     }
     user.is_Mentor = true;
     return res.status(200).send({
       status: 200,
       Message: 'User changed to a mentor successfully',
+      data: {
+        user,
+      },
     });
   }
 
 
   // GET AVAILABLE ALL MENTORS
   static AllMentors = (req, res) => {
-    const allMentors = users.filter(user => user.is_Mentor === true);
+    const allMentors = users.filter(user => user.isMentor === true);
     if (allMentors.length <= 0) {
       return res.status(404).send({
-        status: 404,
+        status: status.NOT_FOUND,
         message: 'No available mentors',
+        data: [],
       });
     }
     return res.status(200).send({
-      status: 200,
+      status: status.REQUEST_SUCCEDED,
+      message: 'succeed',
       data: allMentors,
     });
   }
@@ -131,25 +140,29 @@ class UserController {
     const { mentorId } = req.params;
     if (isNaN(mentorId)) {
       return res.status(400).send({
-        status: 400,
-        error: 'Mentor id should be integer',
+        status: status.BAD_REQUEST,
+        message: 'Mentor id should be integer',
+        data: [],
       });
     }
     const mentor = users.find(u => u.id === parseInt(mentorId));
     if (!mentor) {
       return res.status(404).send({
-        status: 404,
-        error: 'No mentors available with that Id',
+        status: status.NOT_FOUND,
+        message: 'No mentors available with that Id',
+        data: [],
       });
     }
-    if (!mentor.is_Mentor) {
+    if (!mentor.isMentor) {
       return res.status(404).send({
-        status: 404,
-        error: 'not yet a mentor',
+        status: status.BAD_REQUEST,
+        message: 'not yet a mentor',
+        data: [],
       });
     }
     return res.status(200).send({
-      status: 200,
+      status: status.REQUEST_SUCCEDED,
+      message: 'succeed',
       data: mentor,
     });
   }
