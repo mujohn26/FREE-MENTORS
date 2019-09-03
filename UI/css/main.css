@@ -835,6 +835,142 @@ z-index: -1111;
   padding-left: 0;
 }
 
+
+    display: block;
+  }
+  #nav a{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: 
+  }
+}
+*/
+
+
+
+
+@media screen and (max-width: 736px) {
+  #header a {
+    padding: 0 0.5em;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  #header {
+    top: 1em;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  #header {
+    top: 0.5em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #header {
+    font-size: 0.9em;
+  }
+}
+
+/* Nav */
+#nav a {
+  display: inline-block;
+}
+#nav a:hover {
+  background: #76fc8b;
+  color: black;
+}
+@media screen and (max-width: 980px) {
+  #nav {
+    display: none;
+  }
+}
+
+
+/* Banner */
+
+#banner {
+  padding: 8em 0 9em 0;
+  background-image: url(../img/banner.jpg);
+  background-size: cover;
+  background-position: bottom;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  text-align: center;
+  position: relative;
+}
+
+#banner:before {
+  content: "";
+  background: rgba(75, 75, 93, 0.85);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#banner .inner {
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 10005;
+  padding-top: 8em;
+}
+
+#banner h1 {
+  font-size: 3.5em;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1em;
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+
+#banner h3 {
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  font-size: 1.5em;
+}
+
+#banner .icon {
+  color: #6cc091;
+  font-size: 2em;
+}
+
+#banner p {
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 1.75em;
+}
+
+#banner .flex {
+  -ms-flex-pack: center;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto 4em auto;
+}
+
+#banner .flex div {
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0 8em;
+}
+
+#banner .flex div:last-child {
+  border: none;
+  padding-right: 0;
+}
+
+#banner .flex div:first-child {
+  padding-left: 0;
+}
+
+
 #banner .flex div p {
   margin: 0;
 }
@@ -1060,7 +1196,7 @@ input[type="password"] {
 .loginbox a:hover {
   color: white;
 }
-=======
+
 .header-main-login{
     display:flex;
     justify-content: center;
@@ -1241,6 +1377,103 @@ input[type="password"] {
 .view-mentors-title {
   display: flex;
   align-content: center;
+
+}
+/*
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table a {
+  text-decoration: none;
+}
+th,
+td {
+  text-align: left;
+  padding: 6px;
+  font-size: 22px;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+tr:hover {
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+th {
+  background-color: #272727;
+  color: white;
+}
+*/
+
+table { 
+	width: 100%; 
+	border-collapse: collapse; 
+	margin:50px auto;
+	}
+
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+	background: #eee; 
+	}
+
+  table a {
+    text-decoration: none;
+
+  }
+th { 
+  background-color: #272727;
+  color: white;
+	font-weight: bold; 
+	}
+  tr:hover {
+    background: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+  }
+td, th { 
+	padding: 10px; 
+
+	text-align: left; 
+  font-size: 22px;
+	}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media screen and /*(max-width: 760px),*/
+(max-width: 760px) and (max-width: 900px)  {
+.view-mentor1{
+  display: none;
+}
+	table { 
+	  	width:250px; 
+	}
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+
+
 }
 /*
 table {
@@ -1467,10 +1700,14 @@ cursor: pointer;
     height: 40px;
 	font-size: 18px;
 	border-radius: 5px;
+
 	}
 	input::placeholder{
 		text-align: center;
 	}
+
+	
+
     
    
     .placeholder-view{
