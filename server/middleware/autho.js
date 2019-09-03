@@ -1,4 +1,4 @@
-import User from '../controllers/user_controller';
+import User from '../controllers/userController';
 import verifytoken from '../helpers/tokens';
 
 class Auth {
@@ -11,7 +11,6 @@ class Auth {
     }
     try {
       const decode = verifytoken.verifyToken(token);
-      
       const loadedUser = User.users.find(u => u.email === decode.userEmail);
       if (!loadedUser) {
         return res.status(401).send({

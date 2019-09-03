@@ -1,4 +1,3 @@
-import lodash from 'lodash';
 import dotenv from 'dotenv';
 
 dotenv.config();

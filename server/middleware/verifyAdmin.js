@@ -1,11 +1,9 @@
-// eslint-disable-next-line no-unused-vars
-import User from '../controllers/user_controller';
+
 import verifytoken from '../helpers/tokens';
 
 class Auth {
   static verifyAdmin(req, res, next) {
     const token = req.header('x-auth-token');
-    // const decode = verifytoken.verifyToken(token);
     if (!token) {
       return res.status(400).send({
         message: 'Provide a Token',

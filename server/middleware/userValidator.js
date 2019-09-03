@@ -27,8 +27,6 @@ export const validsignUp = (req, res, next) => {
 
 
 export const validSignin = (req, res, next) => {
-  // validation of Request payload
-  // using JOI npm
   const schema = {
     email: Joi.string().email().required(),
     password: Joi.required(),

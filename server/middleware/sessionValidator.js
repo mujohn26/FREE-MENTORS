@@ -1,9 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable no-undef */
 import Joi from 'joi';
 
 export const validcreateSession = (req, res, next) => {
-  // using JOI npm
   const schema = {
     mentorid: Joi.number().required(),
     questions: Joi.string().required(),
@@ -22,7 +19,6 @@ export const validcreateSession = (req, res, next) => {
 };
 
 export const validReviewMentor = (req, res, next) => {
-  // using JOI npm
   const schema = {
     score: Joi.number().required(),
     remark: Joi.string().required(),
