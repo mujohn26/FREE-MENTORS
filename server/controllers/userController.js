@@ -1,6 +1,6 @@
-/* eslint-disable semi */
+
 import dotenv from 'dotenv';
-import User from '../models/user_model';
+import User from '../models/userModel';
 import status from '../helpers/StatusCode';
 import Token from '../helpers/tokens';
 
@@ -27,13 +27,9 @@ class UserController {
        const id = users.length + 1;
        const isEmailTaken = users.find(user => user.email === req.body.email);
        if (isEmailTaken) {
-         // 409 = Conflict due to existing email
          return res.status(409).send({ status: 409, error: `${req.body.email} is already taken!, Give it another try different email.` });
        }
-       // Everything is okay
-       // We fire up User model to create user
        let { is_Mentor, is_admin } = req.body;
-       // let is_mentor = req.body.is_Mentor;
        if (is_Mentor === undefined) { is_Mentor = false; }
        if (is_admin === undefined) { is_admin = false; }
        const user = new User(
@@ -46,7 +42,6 @@ class UserController {
        const token = Token.generateToken(user.id, user.email, is_Mentor, is_admin);
 
        users.push(user);
-       // console.log(user.is_admin);
        return res.status(201).json({
          status: 201,
          message: 'user Registered successfully',
@@ -84,41 +79,37 @@ class UserController {
            error: 'Invalid Email or Password',
          });
        } catch (e) {
-         // Catch any error if it rises
          return res.status(status.SERVER_ERROR).json({
            status: status.SERVER_ERROR,
            error: 'server error',
-           // e,
          });
        }
      }
 
-     
   // CHANGE USER TO A MENTOR
   static changeMentee = (req, res) => {
     const { userId } = req.params;
-    // eslint-disable-next-line radix
     const user = users.find(u => u.id === parseInt(userId));
     if (!user) {
       return res.status(404).send({
         status: 404,
         error: `No user available with id ${userId}`,
-      })
+      });
     }
     if (user.is_Mentor) {
       return res.status(404).send({
         status: 404,
         error: 'already a mentor',
-      })
+      });
     }
     user.is_Mentor = true;
     return res.status(200).send({
       status: 200,
       Message: 'User changed to a mentor successfully',
-    })
+    });
   }
 
-  
+
   // GET AVAILABLE ALL MENTORS
   static AllMentors = (req, res) => {
     const allMentors = users.filter(user => user.is_Mentor === true);
@@ -138,30 +129,29 @@ class UserController {
 
   static specificMentor = (req, res) => {
     const { mentorId } = req.params;
-    // eslint-disable-next-line radix
     if (isNaN(mentorId)) {
       return res.status(400).send({
         status: 400,
         error: 'Mentor id should be integer',
-      })
+      });
     }
     const mentor = users.find(u => u.id === parseInt(mentorId));
     if (!mentor) {
       return res.status(404).send({
         status: 404,
         error: 'No mentors available with that Id',
-      })
+      });
     }
     if (!mentor.is_Mentor) {
       return res.status(404).send({
         status: 404,
         error: 'not yet a mentor',
-      })
+      });
     }
     return res.status(200).send({
       status: 200,
       data: mentor,
-    })
+    });
   }
 }
 
