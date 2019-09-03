@@ -15,7 +15,7 @@ h5,
 h6,
 p,
 img,
-,
+
 u,
 i,
 center,
@@ -590,7 +590,9 @@ button:hover,
 
 .button:hover,
 .pop-button:hover,
-.login-button:hover {
+
+.login-button:hover,.signup-button:hover {
+
 
   background-color: rgba(108, 192, 145, 0.15);
 }
@@ -1033,7 +1035,8 @@ input[type="password"] {
   height: 40px;
   font-size: 18px;
 }
-.login-link a {
+
+.login-link,.signup-link{
 
   font-size: 17px;
   line-height: 20px;
@@ -1177,12 +1180,13 @@ input[type="password"] {
   background: white;
 }
 .signupbox {
-  width: 360px;
+  width: 300px;
   height: 755px;
   background: #272727;
-  padding: 70px 30px;
+  padding: 70px 50px;
   margin: 5px;
   border-radius: 20px;
+
 }
 .signup-img {
   display: flex;
@@ -1204,9 +1208,10 @@ input[type="password"] {
   text-align: center;
 }
 .signupbox input {
-  width: 100%;
+  width: 93%;
   margin-bottom: 20px;
   border-radius: 0.3em;
+  
 }
 .signupbox input[type="text"],
 input[type="password"] {
@@ -1228,7 +1233,7 @@ input[type="password"] {
 .signupbox select {
   margin: 20px auto;
   display: block;
-  width: 100%;
+  width: 90%;
   padding: 6px;
   border: 1px solid gray;
   font-weight: bold;
@@ -1870,5 +1875,38 @@ input[type="password"],input[type="email"] {
 }
 .container-wrap {
   padding-bottom: 2.5rem;
+}
+.signup-button{
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 3px #6cc091;
+  color: #6cc091 !important;
+  border-radius: 30px;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: 400;
+  height: 15%;
+  line-height: 4.4em;
+  letter-spacing: 2px;
+  padding: 0 9.3em;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+
+
+
+
 }
 
