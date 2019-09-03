@@ -67,7 +67,7 @@ describe('GET View specifc mentor with an id not an integer', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('Mentor id should be integer');
+        expect(res.body.message).to.equal('Mentor id should be integer');
         expect(res.status).to.equal(status.BAD_REQUEST);
         done();
       });
@@ -83,7 +83,7 @@ describe('GET view specific , api/v1/mentors', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.NOT_FOUND);
-        expect(res.body.error).to.equal('No mentors available with that Id');
+        expect(res.body.message).to.equal('No mentors available with that Id');
         expect(res.status).to.equal(status.NOT_FOUND);
         done();
       });
@@ -99,7 +99,7 @@ describe('GET user with invalid token, api/v1/mentors', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.UNAUTHORIZED);
-        expect(res.body.error).to.equal('You are not a user');
+        expect(res.body.message).to.equal('You are not a user');
         done();
       });
   });

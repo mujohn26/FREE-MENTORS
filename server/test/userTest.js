@@ -74,8 +74,8 @@ describe('POST sign up successfully, api/v1/auth/signup', () => {
         expect(res.status).to.equal(status.RESOURCE_CREATED);
         expect(res.body.status).to.equal(status.RESOURCE_CREATED);
         expect(res.body.data.token).to.be.a('string');
-        expect(res.body.data.first_Name).to.equal(fname);
-        expect(res.body.data.last_Name).to.equal(lname);
+        expect(res.body.data.firstName).to.equal(fname);
+        expect(res.body.data.lastName).to.equal(lname);
         expect(res.body.data.email).to.equal(email);
 
         done();
@@ -92,7 +92,7 @@ describe('POST email already exist, api/v1/auth/signup', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.REQUEST_CONFLICT);
-        expect(res.body.error).to.equal(`${email} is already taken!, Give it another try different email.`);
+        expect(res.body.message).to.equal(`${email} is already taken!`);
         done();
       });
   });
@@ -154,7 +154,7 @@ describe('POST signin failed, api/v1/auth/signin', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.UNAUTHORIZED);
-        expect(res.body.error).to.equal('Invalid Email or Password');
+        expect(res.body.message).to.equal('Invalid Email or Password');
         done();
       });
   });
