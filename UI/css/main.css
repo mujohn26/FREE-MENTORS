@@ -1516,11 +1516,7 @@ cursor: pointer;
 	font-size: 18px;
 	border-radius: 5px;
 	}
-	input::placeholder{
-		text-align: center;
-	}
-    
-   
+
     .placeholder-view{
         width: 100%;
         height: 60px;
