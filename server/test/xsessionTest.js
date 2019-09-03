@@ -22,9 +22,7 @@ chai.use(chaiHttp);
 // ############ MENTOR TEST ############
 const meId = sessions[0].mentorid;
 const qns = sessions[0].questions;
-// Create a true token for testing
 const token = generateToken.generateToken(1, users[0].email, false, true);
-// Create a token with invalid user
 const mentortoken = generateToken.generateToken(1, users[0].email, true, false);
 const Invalidtoken = generateToken.generateToken(1, 'kkjkshj@gmail.com', false, true);
 describe('POST User can request mentorship, api/v1/sessions', () => {

@@ -32,7 +32,7 @@ describe('GET Both Admin and Users can see all mentors, api/v1/mentors', () => {
         expect(res.body.data[0].id).to.equal(1);
         expect(res.body.data[0].firstName).to.equal('murengezi');
         expect(res.body.data[0].lastName).to.equal('aime');
-        expect(res.body.data[0].is_Mentor).to.equal(true);
+        expect(res.body.data[0].isMentor).to.equal(true);
         expect(res.status).to.equal(status.REQUEST_SUCCEDED);
         done();
       });

@@ -153,7 +153,7 @@ class UserController {
         data: [],
       });
     }
-    if (!mentor.is_Mentor) {
+    if (!mentor.isMentor) {
       return res.status(404).send({
         status: status.BAD_REQUEST,
         message: 'not yet a mentor',
