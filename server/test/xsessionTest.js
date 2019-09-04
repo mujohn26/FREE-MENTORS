@@ -50,7 +50,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"mentorid" must be a number');
+        expect(res.body.message).to.equal('"mentorid" must be a number');
         done();
       });
   });
@@ -66,7 +66,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"mentorid" is required');
+        expect(res.body.message).to.equal('"mentorid" is required');
         done();
       });
   });
@@ -82,7 +82,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"questions" is required');
+        expect(res.body.message).to.equal('"questions" is required');
         done();
       });
   });
