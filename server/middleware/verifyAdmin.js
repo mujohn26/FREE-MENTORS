@@ -7,25 +7,22 @@ class Auth {
     if (!token) {
       return res.status(400).send({
         status: 400,
-        message: 'Provide a Token',
-        data: [],
+        error: 'Provide a Token',
       });
     }
     try {
       const decode = verifytoken.verifyToken(token);
-      if (decode.is_admin !== true) {
+      if (decode.isAdmin !== true) {
         return res.status(401).send({
           status: 401,
-          message: 'You are not a admin',
-          data: [],
+          error: 'You are not a admin',
         });
       }
       next();
     } catch (error) {
       return res.status(401).send({
         status: 401,
-        message: 'invalid token',
-        data: [],
+        error: 'invalid token',
       });
     }
   }

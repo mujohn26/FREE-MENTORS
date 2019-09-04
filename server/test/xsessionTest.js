@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 
 import chai from 'chai';
 

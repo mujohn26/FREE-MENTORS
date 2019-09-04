@@ -1,10 +1,10 @@
 
 import dotenv from 'dotenv';
+import lodash from 'lodash';
 import User from '../models/userModel';
 import status from '../helpers/StatusCode';
 import Token from '../helpers/tokens';
 import comparePassword from '../helpers/decryptor';
-
 
 const users = [
   {
@@ -28,20 +28,18 @@ class UserController {
        const id = users.length + 1;
        const isEmailTaken = users.find(user => user.email === req.body.email);
        if (isEmailTaken) {
-         return res.status(409).send({ status: status.REQUEST_CONFLICT, message: `${req.body.email} is already taken!`, data: [] });
+         return res.status(409).send({ status: status.REQUEST_CONFLICT, error: `${req.body.email} is already taken!` });
        }
        let { isMentor, isAdmin } = req.body;
        if (isMentor === undefined) { isMentor = false; }
        if (isAdmin === undefined) { isAdmin = false; }
        const user = new User(
          id, req.body.firstName, req.body.lastName,
-         req.body.email, req.body.password, req.body.address, req.body.bio, req.body.occupation, 
+         req.body.email, req.body.password, req.body.address, req.body.bio, req.body.occupation,
          req.body.expertise, isMentor, isAdmin,
        );
-
        if (user.is_Mentor === undefined) { user.is_Mentor = false; }
        const token = Token.generateToken(user.id, user.email, isMentor, isAdmin);
-
        users.push(user);
        return res.status(201).json({
          status: status.RESOURCE_CREATED,
@@ -77,8 +75,7 @@ class UserController {
 
          return res.status(status.UNAUTHORIZED).json({
            status: status.UNAUTHORIZED,
-           message: 'Invalid Email or Password',
-           data: [],
+           error: 'Invalid Email or Password',
          });
        } catch (e) {
          return res.status(status.SERVER_ERROR).json({
@@ -91,19 +88,17 @@ class UserController {
   // CHANGE USER TO A MENTOR
   static changeMentee = (req, res) => {
     const { userId } = req.params;
-    const user = users.find(u => u.id === parseInt(userId));
+    const user = users.find(u => u.id === parseInt(userId, 10));
     if (!user) {
       return res.status(404).send({
         status: status.NOT_FOUND,
-        message: `No user available with id ${userId}`,
-        data: [],
+        error: `No user available with id ${userId}`,
       });
     }
     if (user.is_Mentor) {
       return res.status(404).send({
         status: status.NOT_FOUND,
-        message: 'already a mentor',
-        data: [],
+        error: 'already a mentor',
       });
     }
     user.is_Mentor = true;
@@ -119,18 +114,18 @@ class UserController {
 
   // GET AVAILABLE ALL MENTORS
   static AllMentors = (req, res) => {
-    const allMentors = users.filter(user => user.isMentor === true);
+    const allMentors = users.find(user => user.isMentor === true);
     if (allMentors.length <= 0) {
       return res.status(404).send({
         status: status.NOT_FOUND,
-        message: 'No available mentors',
-        data: [],
+        error: 'No available mentors',
       });
     }
+
     return res.status(200).send({
       status: status.REQUEST_SUCCEDED,
       message: 'succeed',
-      data: allMentors,
+      data: lodash.pick(allMentors, 'id', 'firstName', 'lastName', 'email', 'address', 'bio', 'occupation', 'expertise'),
     });
   }
 
@@ -141,29 +136,26 @@ class UserController {
     if (isNaN(mentorId)) {
       return res.status(400).send({
         status: status.BAD_REQUEST,
-        message: 'Mentor id should be integer',
-        data: [],
+        error: 'Mentor id should be integer',
       });
     }
-    const mentor = users.find(u => u.id === parseInt(mentorId));
+    const mentor = users.find(u => u.id === parseInt(mentorId, 10));
     if (!mentor) {
       return res.status(404).send({
         status: status.NOT_FOUND,
-        message: 'No mentors available with that Id',
-        data: [],
+        error: 'No mentors available with that Id',
       });
     }
     if (!mentor.isMentor) {
       return res.status(404).send({
         status: status.BAD_REQUEST,
-        message: 'not yet a mentor',
-        data: [],
+        error: 'not yet a mentor',
       });
     }
     return res.status(200).send({
       status: status.REQUEST_SUCCEDED,
       message: 'succeed',
-      data: mentor,
+      data: lodash.pick(mentor, 'id', 'firstName', 'lastName', 'email', 'address', 'bio', 'occupation', 'expertise'),
     });
   }
 }
