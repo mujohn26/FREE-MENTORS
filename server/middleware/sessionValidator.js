@@ -11,7 +11,8 @@ export const validcreateSession = (req, res, next) => {
     res.status(400).send(
       {
         status: 400,
-        error: result.error.details[0].message,
+        message: result.error.details[0].message,
+        data: [],
       },
     );
   }
@@ -20,7 +21,7 @@ export const validcreateSession = (req, res, next) => {
 
 export const validReviewMentor = (req, res, next) => {
   const schema = {
-    score: Joi.number().required(),
+    score: Joi.number().min(1).max(5).required(),
     remark: Joi.string().required(),
 
   };
@@ -29,7 +30,8 @@ export const validReviewMentor = (req, res, next) => {
     res.status(400).send(
       {
         status: 400,
-        error: result.error.details[0].message,
+        message: result.error.details[0].message,
+        data: [],
       },
     );
   }
