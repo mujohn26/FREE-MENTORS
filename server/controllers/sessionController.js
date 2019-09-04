@@ -4,8 +4,17 @@ import SessionModel from '../models/sessionModel';
 import User from './userController';
 import { getUserId, getUserEmail } from '../helpers/userInfo';
 
-const SessionsData = [];
+const SessionsData = [
+  {
+    sessionId: 1,
+    mentorid: 3,
+    questions: 'studying',
+    menteeId: 2,
+    menteeEmail: 'mj06@gmail.com',
+    status: 'accepted',
+  },
 
+];
 dotenv.config();
 
 class SessionController {
@@ -22,19 +31,17 @@ class SessionController {
       menteeEmail,
       status,
     );
-    const isMentor = User.users.find(u => u.id === parseInt(req.body.mentorid));
+    const isMentor = User.users.find(u => u.id === parseInt(req.body.mentorid, 10));
     if (!isMentor) {
       return res.status(404).send({
         status: 404,
-        message: `No mentor available with id ${req.body.mentorid}`,
-        data: [],
+        error: `No mentor available with id ${req.body.mentorid}`,
       });
     }
     if (!isMentor.isMentor) {
       return res.status(404).send({
         status: 404,
-        message: 'the the requested Id is not a mentor',
-        data: [],
+        error: 'the the requested Id is not a mentor',
       });
     }
     SessionsData.push(newSession);
@@ -55,12 +62,11 @@ class SessionController {
 static AcceptSession = (req, res) => {
   const idmentor = getUserId(req.header('x-auth-token'), res);
   const { sessionid } = req.params;
-  const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid));
+  const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
   if (!mentorAccept) {
     return res.status(404).send({
       status: 404,
-      message: `No session available with id ${sessionid}`,
-      data: [],
+      error: `No session available with id ${sessionid}`,
     });
   }
   if (mentorAccept.status === 'pending' && mentorAccept.mentorid === idmentor) {
@@ -73,20 +79,18 @@ static AcceptSession = (req, res) => {
   }
   return res.status(404).send({
     status: 404,
-    message: 'No sessions for you',
-    data: [],
+    error: 'No sessions for you',
   });
 }
 
 static RejectSession = (req, res) => {
   const idmentor = getUserId(req.header('x-auth-token'), res);
   const { sessionid } = req.params;
-  const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid));
+  const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
   if (!mentorAccept) {
     return res.status(404).send({
       status: 404,
-      message: `No session available with id ${sessionid}`,
-      data: [],
+      error: `No session available with id ${sessionid}`,
     });
   }
   if ((mentorAccept.status === 'pending') && mentorAccept.mentorid === idmentor) {
@@ -99,53 +103,7 @@ static RejectSession = (req, res) => {
   }
   return res.status(404).send({
     status: 404,
-    message: 'No sessions for you',
-    data: [],
-  });
-}
-
-static createReview = (req, res) => {
-  const { score, remark } = req.body;
-  const { sessionid } = req.params;
-  const menteeId = getUserId(req.header('x-auth-token'), res);
-  const mentorReview = SessionsData.find(u => u.sessionId === parseInt(sessionid));
-  const mentorreview = User.users.find(u => u.id === parseInt(menteeId));
-  const menteeName = mentorreview.firstName + mentorreview.lastName;
-
-  if (mentorReview.menteeId !== menteeId) {
-    return res.status(404).send({
-      status: 404,
-      message: 'No sessions with that id',
-      data: [],
-    });
-  }
-  if (mentorReview.status === 'pending') {
-    return res.status(404).send({
-      status: 404,
-      message: 'Your session still pending....',
-      data: [],
-    });
-  }
-  if (mentorReview.status === 'rejected') {
-    return res.status(404).send({
-      status: 404,
-      message: 'Your session have rejected',
-      data: [],
-    });
-  }
-
-  return res.status(200).send({
-    status: 200,
-    message: 'succeed',
-    data: {
-      sessionid,
-      mentorId: mentorReview.mentorid,
-      menteId: menteeId,
-      Score: score,
-      MenteeFullName: menteeName,
-      remark,
-
-    },
+    error: 'No sessions for you',
   });
 }
 }

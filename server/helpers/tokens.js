@@ -6,8 +6,8 @@ const Helper = {
     const token = jwt.sign({
       Id: id,
       userEmail: email,
-      is_Mentor: mentor,
-      is_admin: admin,
+      isMentor: mentor,
+      isAdmin: admin,
     },
     process.env.freeMentors_jwtSecret, { expiresIn: '1d' });
     return token;

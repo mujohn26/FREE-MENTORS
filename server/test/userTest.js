@@ -92,7 +92,7 @@ describe('POST email already exist, api/v1/auth/signup', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.REQUEST_CONFLICT);
-        expect(res.body.message).to.equal(`${email} is already taken!`);
+        expect(res.body.error).to.equal(`${email} is already taken!`);
         done();
       });
   });
@@ -154,7 +154,7 @@ describe('POST signin failed, api/v1/auth/signin', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.UNAUTHORIZED);
-        expect(res.body.message).to.equal('Invalid Email or Password');
+        expect(res.body.error).to.equal('Invalid Email or Password');
         done();
       });
   });

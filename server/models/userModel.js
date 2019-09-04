@@ -19,8 +19,5 @@ class User {
     this.isAdmin = isAdmin;
     this.isMentor = isMentor;
   }
-
-
-    isUserExist = user_id => this.users.find(u => u.id === user_id);
 }
 export default User;
