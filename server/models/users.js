@@ -101,7 +101,6 @@ const users = [
   },
   // 11 last name with whitespace
   {
-   
     lastName: ' ',
     email: faker_mail,
     firstName: faker.name.firstName(),
