@@ -63,7 +63,7 @@ const users = [
   },
 
 
-  // ############# Signin users ################
+  // ####### Signin users ########
   // 5 Correct registered credentials
   {
     email: faker_mail,
@@ -101,7 +101,6 @@ const users = [
   },
   // 11 last name with whitespace
   {
-   
     lastName: ' ',
     email: faker_mail,
     firstName: faker.name.firstName(),
