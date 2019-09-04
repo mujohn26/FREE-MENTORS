@@ -23,8 +23,6 @@ chai.use(chaiHttp);
 const meId = sessions[0].mentorid;
 const qns = sessions[0].questions;
 const token = generateToken.generateToken(1, users[0].email, false, true);
-const mentortoken = generateToken.generateToken(1, users[0].email, true, false);
-const Invalidtoken = generateToken.generateToken(1, 'kkjkshj@gmail.com', false, true);
 describe('POST User can request mentorship, api/v1/sessions', () => {
   it('should create a mentorship session successfully', (done) => {
     chai.request(app)
@@ -53,7 +51,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"mentorid" must be a number');
+        expect(res.body.message).to.equal('"mentorid" must be a number');
         done();
       });
   });
@@ -69,7 +67,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"mentorid" is required');
+        expect(res.body.message).to.equal('"mentorid" is required');
         done();
       });
   });
@@ -85,7 +83,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"questions" is required');
+        expect(res.body.message).to.equal('"questions" is required');
         done();
       });
   });
