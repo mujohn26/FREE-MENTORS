@@ -10,7 +10,7 @@ const users = [
   {
     id: 1,
     firstName: 'murengezi',
-    lastName: 'peter',
+    lastName: 'aime',
     email: 'mujoh13@gmail.com',
     password: 'mugiraneza',
     address: 'nyagatare',
