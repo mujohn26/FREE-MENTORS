@@ -1,3 +1,4 @@
+import * as HttpStatus from 'http-status-codes';
 
 import chai from 'chai';
 
@@ -5,9 +6,8 @@ import chaiHttp from 'chai-http';
 
 import app from '../index';
 
-import status from '../helpers/StatusCode';
-
 import users from '../models/users';
+
 
 const { expect } = chai;
 
@@ -31,7 +31,7 @@ describe('POST sign up with whitespaced first_name, api/v1/auth/signup', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.error).to.equal('"firstName" must only contain alpha-numeric characters');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         done();
       });
   });
@@ -44,8 +44,8 @@ describe('POST sign up with whitespaced last_name, api/v1/auth/signup', () => {
       .send(users[11])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.status).to.equal(HttpStatus.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         done();
       });
   });
@@ -58,8 +58,8 @@ describe('POST sign up with whitespaced password, api/v1/auth/signup', () => {
       .send(users[12])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.status).to.equal(HttpStatus.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         done();
       });
   });
@@ -71,8 +71,8 @@ describe('POST sign up successfully, api/v1/auth/signup', () => {
       .send(users[0])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.RESOURCE_CREATED);
-        expect(res.body.status).to.equal(status.RESOURCE_CREATED);
+        expect(res.status).to.equal(HttpStatus.CREATED);
+        expect(res.body.status).to.equal(HttpStatus.CREATED);
         expect(res.body.data.token).to.be.a('string');
         expect(res.body.data.firstName).to.equal(fname);
         expect(res.body.data.lastName).to.equal(lname);
@@ -91,7 +91,7 @@ describe('POST email already exist, api/v1/auth/signup', () => {
       .send(users[0])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.REQUEST_CONFLICT);
+        expect(res.status).to.equal(HttpStatus.CONFLICT);
         expect(res.body.error).to.equal(`${email} is already taken!`);
         done();
       });
@@ -106,7 +106,7 @@ describe('POST sign up with incomplete data api/v1/auth/signup', () => {
       .send(users[3])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"firstName" is required');
         done();
       });
@@ -121,7 +121,7 @@ describe('POST sign up with invalid email api/v1/auth/signup', () => {
       .send(users[2])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"email" is required');
         done();
       });
@@ -138,7 +138,7 @@ describe('POST signin successfully, api/v1/auth/signin', () => {
       .send(users[5])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.REQUEST_SUCCEDED);
+        expect(res.body.status).to.equal(HttpStatus.OK);
         expect(res.body.data.token).to.be.a('string');
         done();
       });
@@ -153,7 +153,7 @@ describe('POST signin failed, api/v1/auth/signin', () => {
       .send(users[6])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.UNAUTHORIZED);
+        expect(res.body.status).to.equal(HttpStatus.UNAUTHORIZED);
         expect(res.body.error).to.equal('Invalid Email or Password');
         done();
       });
@@ -169,7 +169,7 @@ describe('POST signin with incomplete data, api/v1/auth/signin', () => {
       .send(users[7])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"email" is required');
         done();
       });
@@ -185,7 +185,7 @@ describe('POST signin with incomplete data, api/v1/auth/signin', () => {
       .send(users[8])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"password" is required');
         done();
       });
@@ -201,7 +201,7 @@ describe('POST signin with invalid email, api/v1/auth/signin', () => {
       .send(users[9])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"email" must be a valid email');
         done();
       });

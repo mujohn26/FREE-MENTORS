@@ -1,4 +1,4 @@
-
+import * as HttpStatus from 'http-status-codes';
 import chai from 'chai';
 
 import chaiHttp from 'chai-http';
@@ -8,9 +8,6 @@ import app from '../index';
 import users from '../models/users';
 
 import sessions from '../models/sessions';
-
-import status from '../helpers/StatusCode';
-
 
 import generateToken from '../helpers/tokens';
 
@@ -31,7 +28,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .send(sessions[0])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.RESOURCE_CREATED);
+        expect(res.body.status).to.equal(HttpStatus.CREATED);
         expect(res.body.message).to.equal('session was created');
         expect(res.body.data.mentorid).to.equal(meId);
         expect(res.body.data.questions).to.equal(qns);
@@ -49,7 +46,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .send(sessions[2])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"mentorid" must be a number');
         done();
       });
@@ -65,7 +62,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .send(sessions[3])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"mentorid" is required');
         done();
       });
@@ -81,7 +78,7 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
       .send(sessions[4])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(HttpStatus.BAD_REQUEST);
         expect(res.body.error).to.equal('"questions" is required');
         done();
       });
