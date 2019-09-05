@@ -1,12 +1,12 @@
 import express from 'express';
-import user_controller from '../controllers/userController';
+import userController from '../controllers/userController';
 import verify from '../middleware/autho';
 
 const { verifyUser } = verify;
 
 const router = express.Router();
-router.get('/', verifyUser, user_controller.UserController.AllMentors);
-router.get('/:mentorId', verifyUser, user_controller.UserController.specificMentor);
+router.get('/', verifyUser, userController.UserController.AllMentors);
+router.get('/:mentorId', verifyUser, userController.UserController.specificMentor);
 
 
 export default router;
