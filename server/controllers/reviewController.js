@@ -23,7 +23,8 @@ class ReviewController {
 static createReview = (req, res) => {
   const reviewId = reviewData.length + 1;
   const { score, remark } = req.body;
-  const { sessionid } = req.params;
+  let { sessionid } = req.params;
+  sessionid = parseInt(sessionid, 10);
   const menteeId = getUserId(req.header('x-auth-token'), res);
   const mentorReview = Session.SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
   const user = User.users.find(u => u.id === parseInt(menteeId, 10));

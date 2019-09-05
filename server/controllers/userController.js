@@ -25,7 +25,7 @@ const users = [
     firstName: 'mugiraneza',
     lastName: 'john',
     email: 'mujohn25@gmail.com',
-    password: '0788787273',
+    password: '$2b$10$95FUvTPs.daGdHiHqlvdUuclxEZapHkjeomNYLwyGpzuCB/Uj7GI6',
     address: 'kigali',
     bio: 'born in Rwanda',
     occupation: 'developer',
@@ -43,15 +43,15 @@ class UserController {
        if (isEmailTaken) {
          return res.status(409).send({ status: status.REQUEST_CONFLICT, error: `${req.body.email} is already taken!` });
        }
-       let { isMentor, isAdmin } = req.body;
+       let { isMentor } = req.body;
        if (isMentor === undefined) { isMentor = false; }
-       if (isAdmin === undefined) { isAdmin = false; }
+       let isAdmin = false;
+
        const user = new User(
          id, req.body.firstName, req.body.lastName,
          req.body.email, req.body.password, req.body.address, req.body.bio, req.body.occupation,
          req.body.expertise, isMentor, isAdmin,
        );
-       if (user.is_Mentor === undefined) { user.is_Mentor = false; }
        const token = Token.generateToken(user.id, user.email, isMentor, isAdmin);
        users.push(user);
        return res.status(201).json({
@@ -75,8 +75,9 @@ class UserController {
        try {
          const isLogin = (email, password) => users.find(user => (user.email === email)
        && ((comparePassword(password, user.password))));
-         const token = Token.generateToken(req.body.email, users.id);
          if (isLogin(req.body.email, req.body.password)) {
+           const login = users.find(user => user.email === req.body.email);
+           const token = Token.generateToken(login.id, login.email, login.isAdmin, login.isMentor);
            return res.status(status.REQUEST_SUCCEDED).json({
              status: status.REQUEST_SUCCEDED,
              message: 'user signed in successfully',
@@ -108,18 +109,18 @@ class UserController {
         error: `No user available with id ${userId}`,
       });
     }
-    if (user.is_Mentor) {
+    if (user.isMentor) {
       return res.status(404).send({
         status: status.NOT_FOUND,
         error: 'already a mentor',
       });
     }
-    user.is_Mentor = true;
+    user.isMentor = true;
     return res.status(200).send({
       status: 200,
       Message: 'User changed to a mentor successfully',
       data: {
-        user,
+        data: lodash.pick(user, 'id', 'firstName', 'lastName', 'email', 'address', 'bio', 'occupation', 'expertise', 'isMentor'),
       },
     });
   }
@@ -127,18 +128,25 @@ class UserController {
 
   // GET AVAILABLE ALL MENTORS
   static AllMentors = (req, res) => {
-    const allMentors = users.find(user => user.isMentor === true);
-    if (allMentors.length <= 0) {
+    const mentors = [];
+    for (let item = 0; item < users.length; item += 1) {
+      if (users[item].isMentor === true) {
+        const mentor = users[item];
+        mentors.push(lodash.pick(mentor,
+          ['id', 'firstName', 'lastName', 'email',
+            'address', 'bio', 'occupation', 'expertise']));
+      }
+    }
+    if (mentors.length <= 0) {
       return res.status(404).send({
         status: status.NOT_FOUND,
         error: 'No available mentors',
       });
     }
-
     return res.status(200).send({
       status: status.REQUEST_SUCCEDED,
       message: 'succeed',
-      data: lodash.pick(allMentors, 'id', 'firstName', 'lastName', 'email', 'address', 'bio', 'occupation', 'expertise'),
+      data: mentors,
     });
   }
 
