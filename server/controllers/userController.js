@@ -128,7 +128,6 @@ class UserController {
 
   // GET AVAILABLE ALL MENTORS
   static AllMentors = (req, res) => {
-    console.log(users.length);
     const mentors = [];
     for (let item = 0; item < users.length; item += 1) {
       if (users[item].isMentor === true) {
@@ -138,7 +137,6 @@ class UserController {
             'address', 'bio', 'occupation', 'expertise']));
       }
     }
-    console.log(mentors);
     if (mentors.length <= 0) {
       return res.status(404).send({
         status: status.NOT_FOUND,

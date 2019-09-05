@@ -58,7 +58,6 @@ static createReview = (req, res) => {
     remark,
   );
   reviewData.push(review);
-  console.log(reviewData);
   return res.status(201).send({
     status: 201,
     message: 'created',
