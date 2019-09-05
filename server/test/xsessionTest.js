@@ -26,9 +26,9 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
   it('should create a mentorship session successfully', (done) => {
     chai.request(app)
       .post('/api/v1/sessions')
-      .send(sessions[0])
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
+      .send(sessions[0])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.RESOURCE_CREATED);
@@ -44,9 +44,9 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
   it('request with invalid mentor id', (done) => {
     chai.request(app)
       .post('/api/v1/sessions')
-      .send(sessions[2])
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
+      .send(sessions[2])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
@@ -60,9 +60,9 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
   it('request with no mentor id', (done) => {
     chai.request(app)
       .post('/api/v1/sessions')
-      .send(sessions[3])
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
+      .send(sessions[3])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
@@ -76,9 +76,9 @@ describe('POST User can request mentorship, api/v1/sessions', () => {
   it('request with no questions', (done) => {
     chai.request(app)
       .post('/api/v1/sessions')
-      .send(sessions[4])
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
+      .send(sessions[4])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
