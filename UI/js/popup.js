@@ -1,11 +1,3 @@
-var call = select_obj => {
-  var textArea = document.querySelector("#placeholder-signup");
-  if (select_obj.value == "mentor") {
-    textArea.style.display = "block";
-  } else {
-    textArea.style.display = "none";
-  }
-};
 
 var showRow = row => {
   let rid = Math.floor(Math.random() * 100);
@@ -54,3 +46,19 @@ var admin = row => {
     }
   };
 };
+ let login = () =>{
+ let uname = document.getElementById("email").value;
+ let pwd =  document.getElementById("pwd").value;
+ if(uname == "admin" && pwd == "admin123" ){
+   let url = "../pages/admin-change.html";
+   window.location.href=url;
+ }
+ else if(uname == "mentor" && pwd == "mentor123" ){
+  let url = "../pages/accept-request.html";
+  window.location.href=url;
+ }
+ else{
+  let url = "../pages/view-mentors.html";
+  window.location.href=url;
+ }
+ }
