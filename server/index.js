@@ -1,10 +1,11 @@
 import express from 'express';
 import bodyParse from 'body-parser';
 import dotenv from 'dotenv';
+import * as HttpStatus from 'http-status-codes';
 import userRoute from './routes/userRoute';
 import MentorRoute from './routes/mentorRoute';
 import sessionRoute from './routes/sessionRoute';
-import status from './helpers/StatusCode';
+
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
@@ -23,8 +24,8 @@ app.use('/api/v1/mentors', MentorRoute);
 app.use('/api/v1/sessions', sessionRoute);
 
 app.use('/', (req, res) => {
-  res.status(status.NOT_FOUND).send({
-    status: status.NOT_FOUND,
+  res.status(HttpStatus.NOT_FOUND).send({
+    status: HttpStatus.NOT_FOUND,
     error: 'Incorrect route',
   });
 });

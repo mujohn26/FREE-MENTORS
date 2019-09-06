@@ -66,8 +66,8 @@ const users = [
   // ####### Signin users ########
   // 5 Correct registered credentials
   {
-    email: faker_mail,
-    password: faker_password,
+    email: 'mujohn25@gmail.com',
+    password: '0788787273',
   },
   // 6 Incorrect password
   {
@@ -116,6 +116,16 @@ const users = [
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     password: ' ',
+    adress: faker.address.streetAddress(),
+    occupation: faker.name.jobTitle(),
+    expertise: faker.name.jobDescriptor(),
+    bio: 'lorem ipsum lami peso demi lavita neminkete',
+  },
+  {
+    email: 'ineza@gmail.com',
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    password: 'yamuremye ',
     adress: faker.address.streetAddress(),
     occupation: faker.name.jobTitle(),
     expertise: faker.name.jobDescriptor(),

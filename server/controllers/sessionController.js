@@ -1,4 +1,4 @@
-
+import * as HttpStatus from 'http-status-codes';
 import dotenv from 'dotenv';
 import SessionModel from '../models/sessionModel';
 import User from './userController';
@@ -33,20 +33,20 @@ class SessionController {
     );
     const isMentor = User.users.find(u => u.id === parseInt(req.body.mentorid, 10));
     if (!isMentor) {
-      return res.status(404).send({
-        status: 404,
+      return res.status(HttpStatus.NOT_FOUND).send({
+        status: HttpStatus.NOT_FOUND,
         error: `No mentor available with id ${req.body.mentorid}`,
       });
     }
     if (!isMentor.isMentor) {
-      return res.status(404).send({
-        status: 404,
+      return res.status(HttpStatus.NOT_FOUND).send({
+        status: HttpStatus.NOT_FOUND,
         error: 'the the requested Id is not a mentor',
       });
     }
     SessionsData.push(newSession);
-    return res.status(201).json({
-      status: 201,
+    return res.status(HttpStatus.CREATED).json({
+      status: HttpStatus.CREATED,
       message: 'session was created',
       data: {
         sessionId,
@@ -64,21 +64,21 @@ static AcceptSession = (req, res) => {
   const { sessionid } = req.params;
   const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
   if (!mentorAccept) {
-    return res.status(404).send({
-      status: 404,
+    return res.status(HttpStatus.NOT_FOUND).send({
+      status: HttpStatus.NOT_FOUND,
       error: `No session available with id ${sessionid}`,
     });
   }
   if (mentorAccept.status === 'pending' && mentorAccept.mentorid === idmentor) {
     mentorAccept.status = 'accepted';
-    return res.status(200).send({
-      status: 200,
+    return res.status(HttpStatus.OK).send({
+      status: HttpStatus.OK,
       message: 'succeed',
       data: mentorAccept,
     });
   }
-  return res.status(404).send({
-    status: 404,
+  return res.status(HttpStatus.NOT_FOUND).send({
+    status: HttpStatus.NOT_FOUND,
     error: 'No sessions for you',
   });
 }
@@ -88,21 +88,21 @@ static RejectSession = (req, res) => {
   const { sessionid } = req.params;
   const mentorAccept = SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
   if (!mentorAccept) {
-    return res.status(404).send({
-      status: 404,
+    return res.status(HttpStatus.NOT_FOUND).send({
+      status: HttpStatus.NOT_FOUND,
       error: `No session available with id ${sessionid}`,
     });
   }
   if ((mentorAccept.status === 'pending') && mentorAccept.mentorid === idmentor) {
     mentorAccept.status = 'rejected';
-    return res.status(200).send({
-      status: 200,
+    return res.status(HttpStatus.OK).send({
+      status: HttpStatus.OK,
       message: 'succeed',
       data: mentorAccept,
     });
   }
-  return res.status(404).send({
-    status: 404,
+  return res.status(HttpStatus.NOT_FOUND).send({
+    status: HttpStatus.NOT_FOUND,
     error: 'No sessions for you',
   });
 }

@@ -1,3 +1,4 @@
+import * as HttpStatus from 'http-status-codes';
 import Joi from 'joi';
 
 export const validsignUp = (req, res, next) => {
@@ -15,9 +16,9 @@ export const validsignUp = (req, res, next) => {
   };
   const result = Joi.validate(req.body, schema);
   if (result.error !== null) {
-    res.status(400).send(
+    return res.status(HttpStatus.BAD_REQUEST).send(
       {
-        status: 400,
+        status: HttpStatus.BAD_REQUEST,
         error: result.error.details[0].message,
       },
     );
@@ -34,9 +35,9 @@ export const validSignin = (req, res, next) => {
   const result = Joi.validate(req.body, schema);
 
   if (result.error !== null) {
-    res.status(400).send(
+    return res.status(HttpStatus.BAD_REQUEST).send(
       {
-        status: 400,
+        status: HttpStatus.BAD_REQUEST,
         error: result.error.details[0].message,
       },
     );

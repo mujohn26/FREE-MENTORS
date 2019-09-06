@@ -1,3 +1,4 @@
+import * as HttpStatus from 'http-status-codes';
 import dotenv from 'dotenv';
 import ReviewModal from '../models/reviewModal';
 import { getUserId } from '../helpers/userInfo';
@@ -23,27 +24,27 @@ class ReviewController {
 static createReview = (req, res) => {
   const reviewId = reviewData.length + 1;
   const { score, remark } = req.body;
-  const { sessionid } = req.params;
+  let { sessionid } = req.params;
   const menteeId = getUserId(req.header('x-auth-token'), res);
   const mentorReview = Session.SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
   const user = User.users.find(u => u.id === parseInt(menteeId, 10));
   if (!mentorReview) {
-    return res.status(404).send({
-      status: 404,
+    return res.status(HttpStatus.NOT_FOUND).send({
+      status: HttpStatus.NOT_FOUND,
       error: 'No sessions with that session id',
     });
   }
   const mentorId = mentorReview.mentorid;
   const menteeFullName = user.firstName + user.lastName;
   if (mentorReview.status === 'pending') {
-    return res.status(404).send({
-      status: 400,
+    return res.status(HttpStatus.NOT_FOUND).send({
+      status: HttpStatus.NOT_FOUND,
       error: 'Your session still pending....',
     });
   }
   if (mentorReview.status === 'rejected') {
-    return res.status(404).send({
-      status: 400,
+    return res.status(HttpStatus.NOT_FOUND).send({
+      status: HttpStatus.NOT_FOUND,
       error: 'Your session have rejected',
     });
   }
@@ -57,8 +58,8 @@ static createReview = (req, res) => {
     remark,
   );
   reviewData.push(review);
-  return res.status(201).send({
-    status: 201,
+  return res.status(HttpStatus.CREATED).send({
+    status: HttpStatus.CREATED,
     message: 'created',
     data: {
       reviewId,
@@ -77,15 +78,15 @@ static deleteReview = (req, res) => {
   const { sessionid } = req.params;
   const review = reviewData.find(r => r.sessionid === parseInt(sessionid, 10));
   if (!review) {
-    return res.status(404).send({
-      status: 404,
+    return res.status(HttpStatus.NOT_FOUND).send({
+      status: HttpStatus.NOT_FOUND,
       error: 'No Reviews with that session id',
     });
   }
   const index = reviewData.indexOf(review);
   reviewData.splice(index, 1);
-  return res.status(200).send({
-    status: 200,
+  return res.status(HttpStatus.OK).send({
+    status: HttpStatus.OK,
     data: {
       message: 'succefully deleted',
     },
