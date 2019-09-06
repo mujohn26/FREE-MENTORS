@@ -9,12 +9,12 @@ const Helper = {
       isMentor: mentor,
       isAdmin: admin,
     },
-    process.env.freeMentors_jwtSecret, { expiresIn: '1d' });
+    process.env.JWTKEY, { expiresIn: '1d' });
     return token;
   },
 
   verifyToken(token) {
-    return jwt.verify(token, process.env.freeMentors_jwtSecret);
+    return jwt.verify(token, process.env.JWTKEY);
   },
 };
 
