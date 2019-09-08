@@ -85,19 +85,19 @@ class UserController {
   };
 
      // USER LOGIN
-     static signIn = (req, res) => {
+     static signIn = async (req, res) => {
        try {
-         const isLogin = (email, password) => users.find(user => (user.email === email)
-       && ((comparePassword(password, user.password))));
-         if (isLogin(req.body.email, req.body.password)) {
-           const login = users.find(user => user.email === req.body.email);
-           const token = Token.generateToken(login.id, login.email, login.isAdmin, login.isMentor);
+         const { email, password } = req.body;
+         const isLogin = await this.model().select('*', 'email=$1', [email]);
+         if (isLogin[0] && (comparePassword(password, isLogin[0].password))) {
+           const token = Token.generateToken(isLogin[0].id, isLogin[0].email, isLogin[0].ismentor, isLogin[0].isadmin);
            return res.status(HttpStatus.OK).json({
              status: HttpStatus.OK,
              message: 'user signed in successfully',
              data: {
                token,
              },
+
            });
          }
 
@@ -108,7 +108,7 @@ class UserController {
        } catch (e) {
          return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
            status: HttpStatus.INTERNAL_SERVER_ERROR,
-           error: 'server error',
+           error: e,
          });
        }
      }
