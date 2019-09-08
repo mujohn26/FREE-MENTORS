@@ -12,7 +12,7 @@
   "scripts": {
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test": "nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
-    "start": "babel-node server/index.js",
+    "start": "npm run queries && babel-node ./server/index.js",
     "dev-start": "nodemon --exec babel-node server/index.js"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "lodash": "^4.17.15",
     "node-datetime": "^2.1.2",
     "nyc": "^14.1.1",
+    "pg": "^7.12.1",
     "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {

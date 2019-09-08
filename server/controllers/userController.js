@@ -43,7 +43,6 @@ class UserController {
          return res.status(HttpStatus.CONFLICT).send({ status: HttpStatus.CONFLICT, error: `${req.body.email} is already taken!` });
        }
        let { isMentor } = req.body;
-       if (isMentor === undefined) { isMentor = false; }
        let isAdmin = false;
 
        const user = new User(
