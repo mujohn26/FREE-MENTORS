@@ -142,15 +142,15 @@ class UserController {
 
 
   // GET AVAILABLE ALL MENTORS
-  static AllMentors = (req, res) => {
+  static AllMentors = async (req, res) => {
     const mentors = [];
-    for (let item = 0; item < users.length; item += 1) {
-      if (users[item].isMentor === true) {
-        const mentor = users[item];
-        mentors.push(lodash.pick(mentor,
-          ['id', 'firstName', 'lastName', 'email',
-            'address', 'bio', 'occupation', 'expertise']));
-      }
+    const isMentor = true;
+    const mentor = await this.model().select('*', 'ismentor=$1', [isMentor]);
+    console.log(mentor.length);
+    for (let item = 0; item < mentor.length; item += 1) {
+      mentors.push(lodash.pick(mentor[item],
+        ['id', 'firstName', 'lastName', 'email',
+          'address', 'bio', 'occupation', 'expertise']));
     }
     if (mentors.length <= 0) {
       return res.status(HttpStatus.NOT_FOUND).send({
@@ -164,7 +164,6 @@ class UserController {
       data: mentors,
     });
   }
-
   // GET A SPECIFIC MENTOR
 
   static specificMentor = (req, res) => {

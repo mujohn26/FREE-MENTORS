@@ -1,9 +1,11 @@
 import * as HttpStatus from 'http-status-codes';
-import User from '../controllers/userController';
+import Model from '../models/db';
 import verifytoken from '../helpers/tokens';
 
+const model = new Model('users');
+
 class Auth {
-  static verifyUser = (req, res, next) => {
+  static verifyUser = async (req, res, next) => {
     const token = req.header('x-auth-token');
     if (!token) {
       return res.status(HttpStatus.BAD_REQUEST).send({
@@ -13,8 +15,9 @@ class Auth {
     }
     try {
       const decode = verifytoken.verifyToken(token);
-      const loadedUser = User.users.find(u => u.email === decode.userEmail);
-      if (!loadedUser) {
+      const email = decode.userEmail;
+      const user = await model.select('*', 'email=$1', [email]);
+      if (!user) {
         return res.status(HttpStatus.UNAUTHORIZED).send({
           status: HttpStatus.UNAUTHORIZED,
           error: 'You are not a user',
