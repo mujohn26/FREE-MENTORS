@@ -114,27 +114,28 @@ class UserController {
      }
 
   // CHANGE USER TO A MENTOR
-  static changeMentee = (req, res) => {
+  static changeMentee = async (req, res) => {
     const { userId } = req.params;
-    const user = users.find(u => u.id === parseInt(userId, 10));
-    if (!user) {
+    const user = await this.model().select('*', 'id=$1', [userId]);
+
+    if (!user[0]) {
       return res.status(HttpStatus.NOT_FOUND).send({
         status: HttpStatus.NOT_FOUND,
         error: `No user available with id ${userId}`,
       });
     }
-    if (user.isMentor) {
+    if (user[0].ismentor === true) {
       return res.status(HttpStatus.NOT_FOUND).send({
         status: HttpStatus.NOT_FOUND,
         error: 'already a mentor',
       });
     }
-    user.isMentor = true;
+    await this.model().update('ismentor=$1', 'ismentor = $2', [true, false]);
     return res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
       Message: 'User changed to a mentor successfully',
       data: {
-        data: lodash.pick(user, 'id', 'firstName', 'lastName', 'email', 'address', 'bio', 'occupation', 'expertise', 'isMentor'),
+
       },
     });
   }
