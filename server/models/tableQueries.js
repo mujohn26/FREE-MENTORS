@@ -36,7 +36,22 @@ INSERT INTO users (
          true,
          true
 );
-
+CREATE TABLE sessions(
+  sessionId SERIAL NOT NULL,
+  mentorid INTEGER NOT NULL,
+  questions VARCHAR NOT NULL,
+  menteeId INTEGER NOT NULL,
+  menteeEmail VARCHAR NOT NULL,
+  status VARCHAR NOT NULL,
+);
+INSERT INTO sessions(mentorid ,questions,menteeId,menteeEmail,status)
+VALUES(
+    3,
+ 'studying',
+    2,
+ 'mj06@gmail.com',
+ 'accepted'
+);
 `);
 
 export default createTables;
