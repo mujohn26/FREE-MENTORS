@@ -66,8 +66,8 @@ const users = [
   // ####### Signin users ########
   // 5 Correct registered credentials
   {
-    email: 'mujohn25@gmail.com',
-    password: '0788787273',
+    email: 'mujohn68@gmail.com',
+    password: '0785571790',
   },
   // 6 Incorrect password
   {

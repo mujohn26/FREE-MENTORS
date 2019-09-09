@@ -22,7 +22,7 @@ const Invalidtoken = generateToken.generateToken(1, 'kkjkshj@gmail.com', false, 
 describe('GET Both Admin and Users can see all mentors, api/v1/mentors', () => {
   it('should return all mentors', (done) => {
     chai.request(app)
-      .get('/api/v1/mentors')
+      .get('/api/v2/mentors')
       .set('x-auth-token', token)
       .end((err, res) => {
         expect(res.body).to.be.an('object');
@@ -37,15 +37,13 @@ describe('GET Both Admin and Users can see all mentors, api/v1/mentors', () => {
 describe('GET View a specific mentor api/v1/mentors/{mentor_Id}', () => {
   it('should return a specific mentor', (done) => {
     chai.request(app)
-      .get('/api/v1/mentors/1')
+      .get('/api/v2/mentors/1')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(HttpStatus.OK);
         expect(res.body.data.id).to.equal(1);
-        expect(res.body.data.firstName).to.equal('murengezi');
-        expect(res.body.data.lastName).to.equal('aime');
         expect(res.status).to.equal(HttpStatus.OK);
         done();
       });
@@ -55,7 +53,7 @@ describe('GET View a specific mentor api/v1/mentors/{mentor_Id}', () => {
 describe('GET View specifc mentor with an id not an integer', () => {
   it('should return an error', (done) => {
     chai.request(app)
-      .get('/api/v1/mentors/k')
+      .get('/api/v2/mentors/k')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -71,7 +69,7 @@ describe('GET View specifc mentor with an id not an integer', () => {
 describe('GET view specific , api/v1/mentors', () => {
   it('should return an error', (done) => {
     chai.request(app)
-      .get('/api/v1/mentors/9000')
+      .get('/api/v2/mentors/9000')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -85,14 +83,14 @@ describe('GET view specific , api/v1/mentors', () => {
 });
 
 describe('GET user with invalid token, api/v1/mentors', () => {
-  it('should return all mentors', (done) => {
+  it('should return unauthorized', (done) => {
     chai.request(app)
-      .get('/api/v1/mentors')
+      .get('/api/v2/mentors')
       .set('x-auth-token', Invalidtoken)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(HttpStatus.UNAUTHORIZED);
+        expect(res.body.error).to.equal('HttpStatus.UNAUTHORIZED');
         expect(res.body.error).to.equal('You are not a user');
         done();
       });

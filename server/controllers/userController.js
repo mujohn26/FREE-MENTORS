@@ -117,7 +117,6 @@ class UserController {
     const mentors = [];
     const isMentor = true;
     const mentor = await this.model().select('*', 'ismentor=$1', [isMentor]);
-    console.log(mentor.length);
     for (let item = 0; item < mentor.length; item += 1) {
       mentors.push(lodash.pick(mentor[item],
         ['id', 'firstName', 'lastName', 'email',
