@@ -1,9 +1,10 @@
 import * as HttpStatus from 'http-status-codes';
-import dotenv from 'dotenv';
 import lodash from 'lodash';
-import User from '../models/userModel';
+import Model from '../models/db';
+import encryptedPassword from '../helpers/Encryptor';
 import Token from '../helpers/tokens';
 import comparePassword from '../helpers/decryptor';
+
 
 const users = [
   {
@@ -34,40 +35,54 @@ const users = [
   },
 ];
 
-dotenv.config();
 class UserController {
-     static signUp = (req, res) => {
-       const id = users.length + 1;
-       const isEmailTaken = users.find(user => user.email === req.body.email);
-       if (isEmailTaken) {
-         return res.status(HttpStatus.CONFLICT).send({ status: HttpStatus.CONFLICT, error: `${req.body.email} is already taken!` });
-       }
-       let { isMentor } = req.body;
-       if (isMentor === undefined) { isMentor = false; }
-       let isAdmin = false;
+  static model() {
+    return new Model('users');
+  }
 
-       const user = new User(
-         id, req.body.firstName, req.body.lastName,
-         req.body.email, req.body.password, req.body.address, req.body.bio, req.body.occupation,
-         req.body.expertise, isMentor, isAdmin,
-       );
-       const token = Token.generateToken(user.id, user.email, isMentor, isAdmin);
-       users.push(user);
-       return res.status(HttpStatus.CREATED).json({
-         status: HttpStatus.CREATED,
-         message: 'user Registered successfully',
-         data: {
-           token,
-           id: user.id,
-           firstName: user.firstName,
-           lastName: user.lastName,
-           email: user.email,
-           address: user.address,
-           occupation: user.occupation,
-           expertise: user.expertise,
-         },
-       });
-     };
+  static signUp = async (req, res) => {
+    try {
+      let {
+        firstName,
+        lastName,
+        email,
+        password,
+        address,
+        bio,
+        occupation,
+        expertise,
+      } = req.body;
+      const user = await this.model().select('*', 'email=$1', [email]);
+      if (user[0]) {
+        return res.status(HttpStatus.CONFLICT).json({
+          status: HttpStatus.CONFLICT,
+          error: `${email} is already taken!`,
+        });
+      }
+      let { isMentor } = req.body;
+      if (isMentor === undefined) { isMentor = false; }
+      password = await encryptedPassword(password);
+      let isAdmin = false;
+      const cols = 'firstname, lastname,email,password,address,bio,occupation,expertise,ismentor,isadmin';
+      const sels = `'${firstName}', '${lastName}', '${email}', '${password}', '${address}', '${bio}', '${occupation}', '${expertise}','${isMentor}','${isAdmin}'`;
+      let row = await this.model().insert(cols, sels);
+
+      let token = Token.generateToken(row[0].id, row[0].email, row[0].ismentor, row[0].isadmin);
+      return res.status(HttpStatus.CREATED).json({
+        status: HttpStatus.CREATED,
+        message: 'user Registered successfully',
+        data: {
+          token,
+        },
+      });
+    } catch (e) {
+      return res.status(500).json({
+        status: 500,
+        error: e,
+        message: 'server error',
+      });
+    }
+  };
 
      // USER LOGIN
      static signIn = (req, res) => {
@@ -180,4 +195,4 @@ class UserController {
   }
 }
 
-export default { UserController, users };
+export default { UserController };
