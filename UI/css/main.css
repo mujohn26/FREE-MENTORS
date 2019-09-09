@@ -981,6 +981,13 @@ button:hover,
     padding: 4em 0;
   }
 }
+@media screen and (min-height: 980px) {
+  #footer
+  {
+
+    height: 25vh;
+  }
+}
 
 @media screen and (max-width: 736px) {
   #footer,
@@ -1061,6 +1068,7 @@ input[type="password"] {
   font-weight: bold;
 }
 
+
 .login-img {
   display: flex;
   justify-content: center;
@@ -1089,6 +1097,7 @@ input[type="password"] {
   outline: none;
   height: 40px;
   font-size: 18px;
+ padding: 0 15px;
 }
 .login-link {
   font-size: 17px;
@@ -1844,7 +1853,7 @@ input[type="email"] {
   height: 15%;
   line-height: 4.4em;
   letter-spacing: 2px;
-  padding: 0 6.5em;
+  padding: 0 3.5em;
   vertical-align: middle;
   text-align: center;
   text-decoration: none;
@@ -1889,4 +1898,7 @@ input[type="email"] {
 .decline-text {
   text-decoration: underline;
   display: none;
+}
+.loginbox.a{
+  align-content: center;   
 }
