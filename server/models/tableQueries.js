@@ -33,8 +33,28 @@ INSERT INTO users (
          'born in Rwanda',
          'software engineer',
          'angular js',
-         true,
-         true
+),(
+  'munezero',
+  'pacifique',
+  'mujohn68@gmail.com',
+  '0785571790',
+   'kigali',
+   'born in Rwanda',
+   'software engineer',
+   'angular js',
+   true,
+   false
+),(
+  'munezero',
+  'pacifique',
+  'mujohn68@gmail.com',
+  '0785571790',
+   'kigali',
+   'born in Rwanda',
+   'software engineer',
+   'angular js',
+   true,
+   true
 );
 CREATE TABLE sessions(
   sessionId SERIAL NOT NULL,
