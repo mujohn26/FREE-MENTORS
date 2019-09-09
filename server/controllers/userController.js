@@ -195,4 +195,4 @@ class UserController {
   }
 }
 
-export default { UserController, users };
+export default { UserController };
