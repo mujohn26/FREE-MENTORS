@@ -17,11 +17,11 @@ app.use(bodyParse.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/api/v2/auth', userRoute);
+app.use('/api/v1/auth', userRoute);
 
-app.use('/api/v2/mentors', MentorRoute);
+app.use('/api/v1/mentors', MentorRoute);
 
-app.use('/api/v2/sessions', sessionRoute);
+app.use('/api/v1/sessions', sessionRoute);
 
 app.use('/', (req, res) => {
   res.status(HttpStatus.NOT_FOUND).send({
@@ -29,7 +29,6 @@ app.use('/', (req, res) => {
     error: 'Incorrect route',
   });
 });
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));

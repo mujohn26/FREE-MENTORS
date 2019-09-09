@@ -19,10 +19,10 @@ chai.use(chaiHttp);
 const meId = sessions[0].mentorid;
 const qns = sessions[0].questions;
 const token = generateToken.generateToken(1, users[0].email, false, true);
-describe('POST User can request mentorship, api/v2/sessions', () => {
+describe('POST User can request mentorship, api/v1/sessions', () => {
   it('should create a mentorship session successfully', (done) => {
     chai.request(app)
-      .post('/api/v2/sessions')
+      .post('/api/v1/sessions')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .send(sessions[0])
@@ -37,10 +37,10 @@ describe('POST User can request mentorship, api/v2/sessions', () => {
   });
 });
 
-describe('POST User can request mentorship, api/v2/sessions', () => {
+describe('POST User can request mentorship, api/v1/sessions', () => {
   it('request with invalid mentor id', (done) => {
     chai.request(app)
-      .post('/api/v2/sessions')
+      .post('/api/v1/sessions')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .send(sessions[2])
@@ -53,10 +53,10 @@ describe('POST User can request mentorship, api/v2/sessions', () => {
   });
 });
 
-describe('POST User can request mentorship, api/v2/sessions', () => {
+describe('POST User can request mentorship, api/v1/sessions', () => {
   it('request with no mentor id', (done) => {
     chai.request(app)
-      .post('/api/v2/sessions')
+      .post('/api/v1/sessions')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .send(sessions[3])
@@ -69,10 +69,10 @@ describe('POST User can request mentorship, api/v2/sessions', () => {
   });
 });
 
-describe('POST User can request mentorship, api/v2/sessions', () => {
+describe('POST User can request mentorship, api/v1/sessions', () => {
   it('request with no questions', (done) => {
     chai.request(app)
-      .post('/api/v2/sessions')
+      .post('/api/v1/sessions')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .send(sessions[4])

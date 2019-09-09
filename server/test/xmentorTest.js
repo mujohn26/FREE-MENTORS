@@ -5,7 +5,7 @@ import chaiHttp from 'chai-http';
 
 import app from '../index';
 
-import users from '../controllers/userController';
+import users from '../models/users';
 
 import generateToken from '../helpers/tokens';
 
@@ -15,14 +15,14 @@ chai.use(chaiHttp);
 
 // ############ MENTOR TEST ############
 // Create a true token for testing
-const token = generateToken.generateToken(1, users.email, false, true);
+const token = generateToken.generateToken(1, users[0].email, false, true);
 // Create a token with invalid user
 const Invalidtoken = generateToken.generateToken(1, 'kkjkshj@gmail.com', false, true);
 
-describe('GET Both Admin and Users can see all mentors, api/v2/mentors', () => {
+describe('GET Both Admin and Users can see all mentors, api/v1/mentors', () => {
   it('should return all mentors', (done) => {
     chai.request(app)
-      .get('/api/v2/mentors')
+      .get('/api/v1/mentors')
       .set('x-auth-token', token)
       .end((err, res) => {
         expect(res.body).to.be.an('object');
@@ -34,10 +34,10 @@ describe('GET Both Admin and Users can see all mentors, api/v2/mentors', () => {
 });
 
 
-describe('GET View a specific mentor api/v2/mentors/{mentor_Id}', () => {
+describe('GET View a specific mentor api/v1/mentors/{mentor_Id}', () => {
   it('should return a specific mentor', (done) => {
     chai.request(app)
-      .get('/api/v2/mentors/1')
+      .get('/api/v1/mentors/1')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -55,7 +55,7 @@ describe('GET View a specific mentor api/v2/mentors/{mentor_Id}', () => {
 describe('GET View specifc mentor with an id not an integer', () => {
   it('should return an error', (done) => {
     chai.request(app)
-      .get('/api/v2/mentors/k')
+      .get('/api/v1/mentors/k')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -68,10 +68,10 @@ describe('GET View specifc mentor with an id not an integer', () => {
   });
 });
 
-describe('GET view specific , api/v2/mentors', () => {
+describe('GET view specific , api/v1/mentors', () => {
   it('should return an error', (done) => {
     chai.request(app)
-      .get('/api/v2/mentors/9000')
+      .get('/api/v1/mentors/9000')
       .set('x-auth-token', token)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -84,10 +84,10 @@ describe('GET view specific , api/v2/mentors', () => {
   });
 });
 
-describe('GET user with invalid token, api/v2/mentors', () => {
+describe('GET user with invalid token, api/v1/mentors', () => {
   it('should return all mentors', (done) => {
     chai.request(app)
-      .get('/api/v2/mentors')
+      .get('/api/v1/mentors')
       .set('x-auth-token', Invalidtoken)
       .set('Accept', 'application/json')
       .end((err, res) => {

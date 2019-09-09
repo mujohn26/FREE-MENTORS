@@ -14,7 +14,7 @@
 		}
 	},
 	"host": "freementor26.herokuapp.com",
-	"basePath": "/api/v2",
+	"basePath": "/api/v1",
 	"tags": [
 		{
 			"name": "user",
