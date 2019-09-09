@@ -5,36 +5,6 @@ import encryptedPassword from '../helpers/Encryptor';
 import Token from '../helpers/tokens';
 import comparePassword from '../helpers/decryptor';
 
-
-const users = [
-  {
-    id: 1,
-    firstName: 'murengezi',
-    lastName: 'aime',
-    email: 'mujoh13@gmail.com',
-    password: 'mugiraneza',
-    address: 'nyagatare',
-    bio: 'born in Rwanda',
-    occupation: 'nurse',
-    expertise: 'midwife',
-    isAdmin: false,
-    isMentor: true,
-  },
-  {
-    id: 2,
-    firstName: 'mugiraneza',
-    lastName: 'john',
-    email: 'mujohn25@gmail.com',
-    password: '$2b$10$95FUvTPs.daGdHiHqlvdUuclxEZapHkjeomNYLwyGpzuCB/Uj7GI6',
-    address: 'kigali',
-    bio: 'born in Rwanda',
-    occupation: 'developer',
-    expertise: 'javascript',
-    isAdmin: true,
-    isMentor: true,
-  },
-];
-
 class UserController {
   static model() {
     return new Model('users');
@@ -130,7 +100,8 @@ class UserController {
         error: 'already a mentor',
       });
     }
-    await this.model().update('ismentor=$1', 'ismentor = $2', [true, false]);
+    const { email } = user[0];
+    await this.model().update('ismentor=$1', 'email =$2 ', [true, email]);
     return res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
       Message: 'User changed to a mentor successfully',
@@ -166,7 +137,7 @@ class UserController {
   }
   // GET A SPECIFIC MENTOR
 
-  static specificMentor = (req, res) => {
+  static specificMentor = async (req, res) => {
     const { mentorId } = req.params;
     if (isNaN(mentorId)) {
       return res.status(HttpStatus.BAD_REQUEST).send({
@@ -174,14 +145,14 @@ class UserController {
         error: 'Mentor id should be integer',
       });
     }
-    const mentor = users.find(u => u.id === parseInt(mentorId, 10));
-    if (!mentor) {
+    const mentor = await this.model().select('*', 'id=$1', [mentorId]);
+    if (!mentor[0]) {
       return res.status(HttpStatus.NOT_FOUND).send({
         status: HttpStatus.NOT_FOUND,
         error: 'No mentors available with that Id',
       });
     }
-    if (!mentor.isMentor) {
+    if (mentor[0].isMentor === false) {
       return res.status(HttpStatus.BAD_REQUEST).send({
         status: HttpStatus.BAD_REQUEST,
         error: 'not yet a mentor',
@@ -190,9 +161,11 @@ class UserController {
     return res.status(HttpStatus.OK).send({
       status: HttpStatus.OK,
       message: 'succeed',
-      data: lodash.pick(mentor, 'id', 'firstName', 'lastName', 'email', 'address', 'bio', 'occupation', 'expertise'),
+      data: lodash.pick(mentor[0],
+        ['id', 'firstName', 'lastName', 'email',
+          'address', 'bio', 'occupation', 'expertise']),
     });
   }
 }
 
-export default { UserController, users };
+export default { UserController };
