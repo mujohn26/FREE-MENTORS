@@ -1659,7 +1659,7 @@ input[type="password"] {
   }
 }
 .contact-us {
-  height: 500px;
+  height: 550px;
   display: flex;
   justify-content: center;
   background: white;
@@ -1769,15 +1769,9 @@ input[type="email"] {
     padding: 3em 0;
   }
 }
-.contact-us {
-  height: 500px;
-  display: flex;
-  justify-content: center;
-  background: white;
-}
 .lostpwdbox {
   width: 200px;
-  height: 380px;
+  height: 400px;
   background: rgba(75, 75, 93, 0.85);
   margin: 5px;
   padding: 50px;
