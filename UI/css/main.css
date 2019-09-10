@@ -1039,14 +1039,6 @@ button:hover,
   width: 100%;
   margin-bottom: 20px;
 }
-.loginbox input[type="text"],
-input[type="password"] {
-  border: none;
-  outline: none;
-  height: 40px;
-  font-size: 18px;
-}
-
 .login-link,
 .signup-link {
   font-size: 17px;
@@ -1091,7 +1083,7 @@ input[type="password"] {
   width: 100%;
   margin-bottom: 20px;
 }
-.loginbox input[type="text"],
+.loginbox input[type="text"],.loginbox
 input[type="password"] {
   border: none;
   outline: none;
@@ -1199,11 +1191,16 @@ input[type="password"] {
   border-radius: 0.3em;
 }
 .signupbox input[type="text"],
-input[type="password"] {
+.signupbox input[type="password"]{
   border: none;
   outline: none;
   height: 40px;
   font-size: 18px;
+  padding: 0 15px;
+}
+#type-select{
+margin-left: -5px;
+width: 3.3in;
 }
 
 .signupbox-link {
@@ -1888,7 +1885,7 @@ input[type="email"] {
   height: 15%;
   line-height: 4.4em;
   letter-spacing: 2px;
-  padding: 0 9.3em;
+  padding: 0 5.3em;
   vertical-align: middle;
   text-align: center;
   text-decoration: none;
