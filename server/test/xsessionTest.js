@@ -30,7 +30,7 @@ describe('POST User can request mentorship, api/v2/sessions', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(HttpStatus.CREATED);
         expect(res.body.message).to.equal('session was created');
-        expect(res.body.data.mentorid).to.equal(meId);
+        expect(res.body.data.mentorid).to.equal(1);
         expect(res.body.data.questions).to.equal(qns);
         done();
       });

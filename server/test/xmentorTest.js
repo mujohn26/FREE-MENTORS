@@ -90,7 +90,7 @@ describe('GET user with invalid token, api/v1/mentors', () => {
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.error).to.equal('HttpStatus.UNAUTHORIZED');
+        expect(res.body.status).to.equal(HttpStatus.UNAUTHORIZED);
         expect(res.body.error).to.equal('You are not a user');
         done();
       });

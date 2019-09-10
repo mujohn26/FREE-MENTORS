@@ -17,7 +17,7 @@ class Auth {
       const decode = verifytoken.verifyToken(token);
       const email = decode.userEmail;
       const user = await model.select('*', 'email=$1', [email]);
-      if (!user) {
+      if (user.length === 0) {
         return res.status(HttpStatus.UNAUTHORIZED).send({
           status: HttpStatus.UNAUTHORIZED,
           error: 'You are not a user',

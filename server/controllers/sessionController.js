@@ -1,5 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 import dotenv from 'dotenv';
+import Model from '../models/db';
 import SessionModel from '../models/sessionModel';
 import User from './userController';
 import { getUserId, getUserEmail } from '../helpers/userInfo';
@@ -18,45 +19,51 @@ const SessionsData = [
 dotenv.config();
 
 class SessionController {
-  static createSession = (req, res) => {
-    const sessionId = SessionsData.length + 1;
-    const status = 'pending';
-    const menteeId = getUserId(req.header('x-auth-token'), res);
-    const menteeEmail = getUserEmail(req.header('x-auth-token'), res);
-    const newSession = new SessionModel(
-      sessionId,
-      req.body.mentorid,
-      menteeId,
-      req.body.questions,
-      menteeEmail,
-      status,
-    );
-    const isMentor = User.users.find(u => u.id === parseInt(req.body.mentorid, 10));
-    if (!isMentor) {
-      return res.status(HttpStatus.NOT_FOUND).send({
-        status: HttpStatus.NOT_FOUND,
-        error: `No mentor available with id ${req.body.mentorid}`,
+  static model() {
+    return new Model('users');
+  }
+
+  static modelSession() {
+    return new Model('sessions');
+  }
+
+  static createSession = async (req, res) => {
+    try {
+      let {
+        mentorid,
+        questions,
+      } = req.body;
+      const status = 'pending';
+      const menteeId = getUserId(req.header('x-auth-token'), res);
+      const menteeEmail = getUserEmail(req.header('x-auth-token'), res);
+      const isMentor = await this.model().select('*', 'id=$1', [mentorid]);
+      if (!isMentor[0]) {
+        return res.status(HttpStatus.NOT_FOUND).send({
+          status: HttpStatus.NOT_FOUND,
+          error: `No mentor available with id ${mentorid}`,
+        });
+      }
+      if (!isMentor[0].ismentor) {
+        return res.status(HttpStatus.NOT_FOUND).send({
+          status: HttpStatus.NOT_FOUND,
+          error: 'the requested Id is not a mentor',
+        });
+      }
+      const cols = 'mentorid, questions,menteeid,menteeemail,status';
+      const sels = `'${mentorid}', '${questions}', '${menteeId}', '${menteeEmail}','${status}'`;
+      let row = await this.modelSession().insert(cols, sels);
+      return res.status(HttpStatus.CREATED).json({
+        status: HttpStatus.CREATED,
+        message: 'session was created',
+        data: row,
+      });
+    } catch (e) {
+      return res.status(500).json({
+        status: 500,
+        error: e,
+        message: 'server error',
       });
     }
-    if (!isMentor.isMentor) {
-      return res.status(HttpStatus.NOT_FOUND).send({
-        status: HttpStatus.NOT_FOUND,
-        error: 'the the requested Id is not a mentor',
-      });
-    }
-    SessionsData.push(newSession);
-    return res.status(HttpStatus.CREATED).json({
-      status: HttpStatus.CREATED,
-      message: 'session was created',
-      data: {
-        sessionId,
-        mentorid: newSession.mentorid,
-        questions: newSession.questions,
-        menteeId,
-        menteeEmail,
-        status,
-      },
-    });
   }
 
 static AcceptSession = (req, res) => {
