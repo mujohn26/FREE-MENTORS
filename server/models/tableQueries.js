@@ -33,10 +33,45 @@ INSERT INTO users (
          'born in Rwanda',
          'software engineer',
          'angular js',
-         true,
-         true
+),(
+  'munezero',
+  'pacifique',
+  'mujohn68@gmail.com',
+  '0785571790',
+   'kigali',
+   'born in Rwanda',
+   'software engineer',
+   'angular js',
+   true,
+   false
+),(
+  'munezero',
+  'pacifique',
+  'mujohn68@gmail.com',
+  '0785571790',
+   'kigali',
+   'born in Rwanda',
+   'software engineer',
+   'angular js',
+   true,
+   true
 );
-
+CREATE TABLE sessions(
+  sessionId SERIAL NOT NULL,
+  mentorid INTEGER NOT NULL,
+  questions VARCHAR NOT NULL,
+  menteeId INTEGER NOT NULL,
+  menteeEmail VARCHAR NOT NULL,
+  status VARCHAR NOT NULL,
+);
+INSERT INTO sessions(mentorid ,questions,menteeId,menteeEmail,status)
+VALUES(
+    3,
+ 'studying',
+    2,
+ 'mj06@gmail.com',
+ 'accepted'
+);
 `);
 
 export default createTables;
