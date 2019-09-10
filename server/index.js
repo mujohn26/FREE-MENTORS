@@ -2,9 +2,7 @@ import express from 'express';
 import bodyParse from 'body-parser';
 import dotenv from 'dotenv';
 import * as HttpStatus from 'http-status-codes';
-import userRoute from './routes/userRoute';
-import MentorRoute from './routes/mentorRoute';
-import sessionRoute from './routes/sessionRoute';
+import Route from './routes/route';
 
 
 const swaggerUi = require('swagger-ui-express');
@@ -17,11 +15,7 @@ app.use(bodyParse.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/api/v2/auth', userRoute);
-
-app.use('/api/v2/mentors', MentorRoute);
-
-app.use('/api/v2/sessions', sessionRoute);
+app.use('/api/v2', Route);
 
 app.use('/', (req, res) => {
   res.status(HttpStatus.NOT_FOUND).send({
