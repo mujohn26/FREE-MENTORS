@@ -3,6 +3,8 @@ import Model from '../models/db';
 import encryptedPassword from '../helpers/Encryptor';
 import Token from '../helpers/tokens';
 import response from '../helpers/responseHandler';
+import comparePassword from '../helpers/decryptor';
+
 
 
 class UserController {
@@ -40,5 +42,23 @@ class UserController {
       return response.errorMessage(req, res, 'server error', HttpStatus.INTERNAL_SERVER_ERROR, 'error');
     }
   };
+
+     // USER LOGIN
+     static signIn = async (req, res) => {
+       try {
+         const { email, password } = req.body;
+         const isLogin = await this.model().select('*', 'email=$1', [email]);
+         if (isLogin[0] && (comparePassword(password, isLogin[0].password))) {
+           const token = Token.generateToken(isLogin[0].id, isLogin[0].email, 
+             isLogin[0].ismentor, isLogin[0].isadmin);
+           return response.successMessage(req, res, 'user signed in successfully', HttpStatus.OK, token);
+         }
+
+         return response.errorMessage(req, res, 'Invalid Email or Password', HttpStatus.UNAUTHORIZED, 'error');
+       } catch (e) {
+         return response.errorMessage(req, res, 'server error', HttpStatus.INTERNAL_SERVER_ERROR, 'error');
+       }
+     }
 }
+
 export default { UserController };

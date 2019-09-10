@@ -1,3 +1,4 @@
+
 class response {
 static errorMessage = (req, res, msg, status) => {
   res.status(status).json({
@@ -14,5 +15,7 @@ static successMessage = (req, res, msg, status, data) => {
     data,
   });
 };
+
+
 }
 export default response;
