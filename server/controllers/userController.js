@@ -36,7 +36,7 @@ class UserController {
       let row = await this.model().insert(cols, sels);
 
       let token = Token.generateToken(row[0].id, row[0].email, row[0].ismentor, row[0].isadmin);
-      return response.successMessage(req, res, 'user created succefully', 201, token);
+      return response.successMessage(req, res, 'user created succefully', 201, ` token: ${token}`);
     } catch (e) {
       return response.errorMessage(req, res, 'server error', HttpStatus.INTERNAL_SERVER_ERROR, 'error');
     }
@@ -48,7 +48,7 @@ class UserController {
          const { email, password } = req.body;
          const isLogin = await this.model().select('*', 'email=$1', [email]);
          if (isLogin[0] && (comparePassword(password, isLogin[0].password))) {
-           const token = Token.generateToken(isLogin[0].id, isLogin[0].email, 
+           const token = Token.generateToken(isLogin[0].id, isLogin[0].email,
              isLogin[0].ismentor, isLogin[0].isadmin);
            return response.successMessage(req, res, 'user signed in successfully', HttpStatus.OK, token);
          }
@@ -58,6 +58,21 @@ class UserController {
          return response.errorMessage(req, res, 'server error', HttpStatus.INTERNAL_SERVER_ERROR, 'error');
        }
      }
+
+     // CHANGE USER TO A MENTOR
+  static changeMentee = async (req, res) => {
+    const { userId } = req.params;
+    const user = await this.model().select('*', 'id=$1', [userId]);
+
+    if (!user[0]) {
+      return response.errorMessage(req, res, `No user available with id ${userId}`, HttpStatus.NOT_FOUND, 'error');
+    }
+    if (user[0].ismentor === true) {
+      return response.errorMessage(req, res, 'already a mentor', HttpStatus.NOT_FOUND, 'error');
+    }
+    await this.model().update('ismentor=$1', 'id= $2', [true, user[0].id]);
+    return response.successMessage(req, res, 'User changed to a mentor successfully', HttpStatus.OK, `ismentor:${!user[0].ismentor}`);
+  }
 }
 
 export default { UserController };

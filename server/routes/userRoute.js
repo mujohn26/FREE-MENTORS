@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.post('/signup', validsignUp, userController.UserController.signUp);
 router.post('/signin', validSignin, userController.UserController.signIn);
+router.patch('/user/:userId', verifyAdmin, userController.UserController.changeMentee);
 
 
 export default router;
