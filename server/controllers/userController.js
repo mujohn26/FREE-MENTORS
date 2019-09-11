@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
-import Model from '../models/db';
 import lodash from 'lodash';
+import Model from '../models/db';
 import encryptedPassword from '../helpers/Encryptor';
 import Token from '../helpers/tokens';
 import response from '../helpers/responseHandler';
@@ -85,7 +85,7 @@ class UserController {
     return response.successMessage(req, res, 'User changed to a mentor successfully', HttpStatus.OK, data);
   }
 
-  // GET A SPECIFIC MENTOR
+  // GET ALL MENTORS
   static AllMentors = async (req, res) => {
     const mentors = [];
     const isMentor = true;
@@ -101,6 +101,27 @@ class UserController {
     const data = {
       mentors,
     };
+    return response.successMessage(req, res, 'succeed', HttpStatus.OK, data);
+  }
+
+  // GET SPECIFIC MENTOR
+
+  static specificMentor = async (req, res) => {
+    const { mentorId } = req.params;
+    if (isNaN(mentorId)) {
+      return response.errorMessage(req, res, 'Mentor id should be integer', HttpStatus.BAD_REQUEST, 'error');
+    }
+    const mentor = await this.model().select('*', 'id=$1', [mentorId]);
+    if (!mentor[0]) {
+      return response.errorMessage(req, res, 'No mentors available with that Id', HttpStatus.NOT_FOUND, 'error');
+    }
+    if (mentor[0].isMentor === false) {
+      return response.errorMessage(req, res, 'not yet a mentor', HttpStatus.BAD_REQUEST, 'error');
+    }
+    const data = lodash.pick(mentor[0],
+      ['id', 'firstName', 'lastName', 'email',
+        'address', 'bio', 'occupation', 'expertise']);
+
     return response.successMessage(req, res, 'succeed', HttpStatus.OK, data);
   }
 }

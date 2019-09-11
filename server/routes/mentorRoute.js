@@ -6,6 +6,7 @@ const { verifyUser } = verify;
 
 const router = express.Router();
 router.get('/', verifyUser, userController.UserController.AllMentors);
+router.get('/:mentorId', verifyUser, userController.UserController.specificMentor);
 
 
 export default router;
