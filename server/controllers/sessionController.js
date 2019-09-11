@@ -45,12 +45,27 @@ class SessionController {
     const { sessionid } = req.params;
     const mentorAccept = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
     if (!mentorAccept[0]) {
-      return response.errorMessage(req, res, `No session available with id ${sessionid}`,HttpStatus.NOT_FOUND, 'error');
+      return response.errorMessage(req, res, `No session available with id ${sessionid}`, HttpStatus.NOT_FOUND, 'error');
     }
     if (mentorAccept[0].status === 'pending' && mentorAccept[0].mentorid === idMentor) {
       await this.modelSession().update('status=$1', 'sessionid=$2', ['accepted', mentorAccept[0].sessionid]);
       const acceptedSession = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
       return response.successMessage(req, res, 'succeed', HttpStatus.OK, acceptedSession[0]);
+    }
+    return response.errorMessage(req, res, 'No sessions for you', HttpStatus.NOT_FOUND, 'error');
+  }
+
+  static RejectSession = async (req, res) => {
+    const idMentor = getUserId(req.header('x-auth-token'), res);
+    const { sessionid } = req.params;
+    const mentorReject = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
+    if (!mentorReject[0]) {
+      return response.errorMessage(req, res, `No session available with id ${sessionid}`, HttpStatus.NOT_FOUND, 'error');
+    }
+    if ((mentorReject[0].status === 'pending') && mentorReject[0].mentorid === idMentor) {
+      await this.modelSession().update('status=$1', 'sessionid=$2', ['rejected', sessionid]);
+      const jectedSession = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
+      return response.successMessage(req, res, 'succeed', HttpStatus.OK, jectedSession);
     }
     return response.errorMessage(req, res, 'No sessions for you', HttpStatus.NOT_FOUND, 'error');
   }
