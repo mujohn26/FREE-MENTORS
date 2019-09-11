@@ -5,6 +5,7 @@ import verify from '../middleware/autho';
 const { verifyUser } = verify;
 
 const router = express.Router();
+router.get('/', verifyUser, userController.UserController.AllMentors);
 
 
 export default router;

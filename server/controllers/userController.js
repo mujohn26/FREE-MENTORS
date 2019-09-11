@@ -1,10 +1,10 @@
 import * as HttpStatus from 'http-status-codes';
 import Model from '../models/db';
+import lodash from 'lodash';
 import encryptedPassword from '../helpers/Encryptor';
 import Token from '../helpers/tokens';
 import response from '../helpers/responseHandler';
 import comparePassword from '../helpers/decryptor';
-
 
 
 class UserController {
@@ -83,6 +83,25 @@ class UserController {
       ismentor,
     };
     return response.successMessage(req, res, 'User changed to a mentor successfully', HttpStatus.OK, data);
+  }
+
+  // GET A SPECIFIC MENTOR
+  static AllMentors = async (req, res) => {
+    const mentors = [];
+    const isMentor = true;
+    const mentor = await this.model().select('*', 'ismentor=$1', [isMentor]);
+    for (let item = 0; item < mentor.length; item += 1) {
+      mentors.push(lodash.pick(mentor[item],
+        ['id', 'firstName', 'lastName', 'email',
+          'address', 'bio', 'occupation', 'expertise']));
+    }
+    if (mentors.length <= 0) {
+      return response.errorMessage(req, res, 'No available mentors', HttpStatus.NOT_FOUND, 'error');
+    }
+    const data = {
+      mentors,
+    };
+    return response.successMessage(req, res, 'succeed', HttpStatus.OK, data);
   }
 }
 
