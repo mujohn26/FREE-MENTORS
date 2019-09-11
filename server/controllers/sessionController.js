@@ -39,5 +39,20 @@ class SessionController {
       return response.errorMessage(req, res, 'server error', 500, 'error');
     }
   }
+
+  static AcceptSession = async (req, res) => {
+    const idMentor = getUserId(req.header('x-auth-token'), res);
+    const { sessionid } = req.params;
+    const mentorAccept = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
+    if (!mentorAccept[0]) {
+      return response.errorMessage(req, res, `No session available with id ${sessionid}`,HttpStatus.NOT_FOUND, 'error');
+    }
+    if (mentorAccept[0].status === 'pending' && mentorAccept[0].mentorid === idMentor) {
+      await this.modelSession().update('status=$1', 'sessionid=$2', ['accepted', mentorAccept[0].sessionid]);
+      const acceptedSession = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
+      return response.successMessage(req, res, 'succeed', HttpStatus.OK, acceptedSession[0]);
+    }
+    return response.errorMessage(req, res, 'No sessions for you', HttpStatus.NOT_FOUND, 'error');
+  }
 }
 export default { SessionController };
