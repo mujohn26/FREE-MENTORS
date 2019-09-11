@@ -15,7 +15,9 @@ app.use(bodyParse.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+
 app.use('/api/v2', Route);
+
 
 app.use('/', (req, res) => {
   res.status(HttpStatus.NOT_FOUND).send({
