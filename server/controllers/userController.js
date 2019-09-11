@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
-import Model from '../models/db';
 import lodash from 'lodash';
+import Model from '../models/db';
 import encryptedPassword from '../helpers/Encryptor';
 import Token from '../helpers/tokens';
 import response from '../helpers/responseHandler';
