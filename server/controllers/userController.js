@@ -36,7 +36,10 @@ class UserController {
       let row = await this.model().insert(cols, sels);
 
       let token = Token.generateToken(row[0].id, row[0].email, row[0].ismentor, row[0].isadmin);
-      return response.successMessage(req, res, 'user created succefully', 201, ` token: ${token}`);
+      const data = {
+        token,
+      };
+      return response.successMessage(req, res, 'user created succefully', 201, data);
     } catch (e) {
       return response.errorMessage(req, res, 'server error', HttpStatus.INTERNAL_SERVER_ERROR, 'error');
     }
@@ -50,7 +53,10 @@ class UserController {
          if (isLogin[0] && (comparePassword(password, isLogin[0].password))) {
            const token = Token.generateToken(isLogin[0].id, isLogin[0].email,
              isLogin[0].ismentor, isLogin[0].isadmin);
-           return response.successMessage(req, res, 'user signed in successfully', HttpStatus.OK, token);
+           const data = {
+             token,
+           };
+           return response.successMessage(req, res, 'user signed in successfully', HttpStatus.OK, data);
          }
 
          return response.errorMessage(req, res, 'Invalid Email or Password', HttpStatus.UNAUTHORIZED, 'error');
@@ -71,7 +77,11 @@ class UserController {
       return response.errorMessage(req, res, 'already a mentor', HttpStatus.NOT_FOUND, 'error');
     }
     await this.model().update('ismentor=$1', 'id= $2', [true, user[0].id]);
-    return response.successMessage(req, res, 'User changed to a mentor successfully', HttpStatus.OK, `ismentor:${!user[0].ismentor}`);
+    const ismentor = !user[0].ismentor;
+    const data = {
+      ismentor,
+    };
+    return response.successMessage(req, res, 'User changed to a mentor successfully', HttpStatus.OK, data);
   }
 }
 
