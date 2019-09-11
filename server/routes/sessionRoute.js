@@ -13,4 +13,5 @@ router.post('/', validcreateSession, verifyUser, sessionController.SessionContro
 router.patch('/:sessionid/accept', verifyMentor, sessionController.SessionController.AcceptSession);
 router.patch('/:sessionid/reject', verifyMentor, sessionController.SessionController.RejectSession);
 router.post('/:sessionid/review', validReviewMentor, verifyUser, reviewController.ReviewController.createReview);
+router.delete('/:sessionid/review', verifyUser, reviewController.ReviewController.deleteReview);
 export default router;

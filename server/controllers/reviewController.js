@@ -43,5 +43,15 @@ static createReview = async (req, res) => {
   let row = await this.reviewSession().insert(cols, sels);
   return response.successMessage(req, res, 'created', HttpStatus.CREATED, row);
 }
+
+static deleteReview = async (req, res) => {
+  const { sessionid } = req.params;
+  const review = await this.reviewSession().select('*', 'sessionid=$1', [sessionid]);
+  if (!review[0]) {
+    return response.errorMessage(req, res, 'No Reviews with that session id', HttpStatus.NOT_FOUND, 'error');
+  }
+  await this.reviewSession().delete('reviewid=$1', [review[0].reviewid]);
+  return response.successMessage(req, res, 'successfully deleted', HttpStatus.CREATED);
+}
 }
 export default { ReviewController };
