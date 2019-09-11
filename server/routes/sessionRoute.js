@@ -10,4 +10,5 @@ const { verifyUser } = verify;
 const router = express.Router();
 router.post('/', validcreateSession, verifyUser, sessionController.SessionController.createSession);
 router.patch('/:sessionid/accept', verifyMentor, sessionController.SessionController.AcceptSession);
+router.patch('/:sessionid/reject', verifyMentor, sessionController.SessionController.RejectSession);
 export default router;
