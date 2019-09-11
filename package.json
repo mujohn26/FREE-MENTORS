@@ -11,12 +11,8 @@
   "license": "MIT",
   "scripts": {
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-<<<<<<< HEAD
     "test": "babel-node ./server/models/tableQueries.js createTables && nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
     "queries": "babel-node ./server/models/tableQueries.js createTables",
-=======
-    "test": "nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
->>>>>>> ft-db-login-168365038
     "start": "npm run queries && babel-node ./server/index.js",
     "dev-start": "nodemon --exec babel-node server/index.js"
   },
