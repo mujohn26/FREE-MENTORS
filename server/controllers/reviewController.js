@@ -1,96 +1,47 @@
 import * as HttpStatus from 'http-status-codes';
 import dotenv from 'dotenv';
-import ReviewModal from '../models/reviewModal';
 import { getUserId } from '../helpers/userInfo';
-import Session from './sessionController';
-import User from './userController';
+import Model from '../models/db';
+import response from '../helpers/responseHandler';
 
-const reviewData = [
-  {
-    reviewId: 1,
-    sessionid: 1,
-    mentorId: 3,
-    menteeId: 2,
-    score: 3,
-    menteeFullName: 'munezerpaime',
-    remark: 'it was a good time just',
-  },
-
-
-];
 
 dotenv.config();
 class ReviewController {
-static createReview = (req, res) => {
-  const reviewId = reviewData.length + 1;
+  static model() {
+    return new Model('users');
+  }
+
+  static modelSession() {
+    return new Model('sessions');
+  }
+
+  static reviewSession() {
+    return new Model('review');
+  }
+
+static createReview = async (req, res) => {
   const { score, remark } = req.body;
   let { sessionid } = req.params;
   const menteeId = getUserId(req.header('x-auth-token'), res);
-  const mentorReview = Session.SessionsData.find(u => u.sessionId === parseInt(sessionid, 10));
-  const user = User.users.find(u => u.id === parseInt(menteeId, 10));
-  if (!mentorReview) {
-    return res.status(HttpStatus.NOT_FOUND).send({
-      status: HttpStatus.NOT_FOUND,
-      error: 'No sessions with that session id',
-    });
-  }
-  const mentorId = mentorReview.mentorid;
-  const menteeFullName = user.firstName + user.lastName;
-  if (mentorReview.status === 'pending') {
-    return res.status(HttpStatus.NOT_FOUND).send({
-      status: HttpStatus.NOT_FOUND,
-      error: 'Your session still pending....',
-    });
-  }
-  if (mentorReview.status === 'rejected') {
-    return res.status(HttpStatus.NOT_FOUND).send({
-      status: HttpStatus.NOT_FOUND,
-      error: 'Your session have rejected',
-    });
-  }
-  const review = new ReviewModal(
-    reviewId,
-    sessionid,
-    mentorId,
-    menteeId,
-    score,
-    menteeFullName,
-    remark,
-  );
-  reviewData.push(review);
-  return res.status(HttpStatus.CREATED).send({
-    status: HttpStatus.CREATED,
-    message: 'created',
-    data: {
-      reviewId,
-      sessionid,
-      mentorId,
-      menteeId,
-      score,
-      menteeFullName,
-      remark,
+  const mentorReview = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
+  const user = await this.model().select('*', 'id=$1', [menteeId]);
 
-    },
-  });
-}
-
-static deleteReview = (req, res) => {
-  const { sessionid } = req.params;
-  const review = reviewData.find(r => r.sessionid === parseInt(sessionid, 10));
-  if (!review) {
-    return res.status(HttpStatus.NOT_FOUND).send({
-      status: HttpStatus.NOT_FOUND,
-      error: 'No Reviews with that session id',
-    });
+  if (!mentorReview[0]) {
+    return response.errorMessage(req, res, 'No sessions with that session id', HttpStatus.NOT_FOUND, 'error');
   }
-  const index = reviewData.indexOf(review);
-  reviewData.splice(index, 1);
-  return res.status(HttpStatus.OK).send({
-    status: HttpStatus.OK,
-    data: {
-      message: 'succefully deleted',
-    },
-  });
+  const mentorId = mentorReview[0].mentorid;
+
+  const menteename = `${user[0].firstname} ${user[0].lastname}`;
+  if (mentorReview[0].status === 'pending') {
+    return response.errorMessage(req, res, 'Your session still pending....', HttpStatus.NOT_FOUND, 'error');
+  }
+  if (mentorReview[0].status === 'rejected') {
+    return response.errorMessage(req, res, 'Your session have rejected', HttpStatus.NOT_FOUND, 'error');
+  }
+  const cols = 'sessionid, mentorid,menteeid,score,menteename,remark';
+  const sels = `'${sessionid}', '${mentorId}', '${menteeId}', '${score}','${menteename}','${remark}'`;
+  let row = await this.reviewSession().insert(cols, sels);
+  return response.successMessage(req, res, 'created', HttpStatus.CREATED, row);
 }
 }
-export default { ReviewController, reviewData };
+export default { ReviewController };
