@@ -8,4 +8,5 @@ router.use('/auth', userRoute);
 
 router.use('/sessions', sessionRoute);
 
+
 export default router;
