@@ -10,6 +10,7 @@ pool.on('error', (err) => {
 
 const createTables = pool.query(`DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users(
+    id SERIAL NOT NULL,
     firstName VARCHAR NOT NULL,
     lastName VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
@@ -28,16 +29,18 @@ INSERT INTO users (
         'munezero',
         'pacifique',
         'mujohn68@gmail.com',
-        '0785571790',
+        '$2b$10$d9H69WXJ90JViosDOY8bkux594B2Zu.yo/Y0rVsCcBrw3rT6DtnY6',
          'kigali',
          'born in Rwanda',
          'software engineer',
          'angular js',
+         true,
+         true
 ),(
   'munezero',
   'pacifique',
-  'mujohn68@gmail.com',
-  '0785571790',
+  'mujohn681@gmail.com',
+  '$2b$10$d9H69WXJ90JViosDOY8bkux594B2Zu.yo/Y0rVsCcBrw3rT6DtnY6',
    'kigali',
    'born in Rwanda',
    'software engineer',
@@ -47,8 +50,8 @@ INSERT INTO users (
 ),(
   'munezero',
   'pacifique',
-  'mujohn68@gmail.com',
-  '0785571790',
+  'mujohn682@gmail.com',
+  '$2b$10$d9H69WXJ90JViosDOY8bkux594B2Zu.yo/Y0rVsCcBrw3rT6DtnY6',
    'kigali',
    'born in Rwanda',
    'software engineer',
@@ -56,13 +59,13 @@ INSERT INTO users (
    true,
    true
 );
-CREATE TABLE sessions(
+DROP TABLE IF EXISTS sessions CASCADE;CREATE TABLE sessions(
   sessionId SERIAL NOT NULL,
   mentorid INTEGER NOT NULL,
   questions VARCHAR NOT NULL,
   menteeId INTEGER NOT NULL,
   menteeEmail VARCHAR NOT NULL,
-  status VARCHAR NOT NULL,
+  status VARCHAR NOT NULL
 );
 INSERT INTO sessions(mentorid ,questions,menteeId,menteeEmail,status)
 VALUES(
