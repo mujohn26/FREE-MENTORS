@@ -25,12 +25,24 @@ class SessionController {
       const menteeId = getUserId(req.header('x-auth-token'), res);
       const menteeEmail = getUserEmail(req.header('x-auth-token'), res);
       const isMentor = await this.model().select('*', 'id=$1', [mentorid]);
+      const isSession = await this.modelSession().select('*', 'mentorid=$1', [mentorid]);
+      let count = 0;
+      for (let i = 0; i < isSession.length; i += 1) {
+        if (isSession[i].questions === questions) {
+          count += 1;
+        }
+      }
+      if (count >= 1) {
+        return response.errorMessage(req, res, 'You requested same question to one mentor', HttpStatus.CONFLICT, 'error');
+      }
       if (!isMentor[0]) {
         return response.errorMessage(req, res, `No mentor available with id ${mentorid}`, HttpStatus.NOT_FOUND, 'error');
       }
       if (!isMentor[0].ismentor) {
         return response.errorMessage(req, res, 'the requested Id is not a mentor', HttpStatus.NOT_FOUND, 'error');
       }
+
+
       const cols = 'mentorid, questions,menteeid,menteeemail,status';
       const sels = `'${mentorid}', '${questions}', '${menteeId}', '${menteeEmail}','${status}'`;
       let row = await this.modelSession().insert(cols, sels);
