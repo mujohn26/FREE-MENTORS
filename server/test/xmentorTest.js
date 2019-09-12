@@ -5,7 +5,7 @@ import chaiHttp from 'chai-http';
 
 import app from '../index';
 
-import users from '../controllers/userController';
+import users from '../models/users';
 
 import generateToken from '../helpers/tokens';
 
@@ -13,11 +13,8 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-// ############ MENTOR TEST ############
-// Create a true token for testing
-const token = generateToken.generateToken(1, users.email, false, true);
-// Create a token with invalid user
-const Invalidtoken = generateToken.generateToken(1, 'kkjkshj@gmail.com', false, true);
+const token = generateToken.generateToken(1, users[14].email, false, true);
+const Invalidtoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MiwidXNlckVtYWlsIjoibXVqb2huMjVAZ21haWwuY29tIiwiaXNNZW50b3IiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2Nzc1ODUxNywiZXhwIjoxNTY3ODQ0OTE3fQ.qq-fyGN5VnrTwJQDzrbXUhhARO_JDS-q3KedVWU20QU';
 
 describe('GET Both Admin and Users can see all mentors, api/v2/mentors', () => {
   it('should return all mentors', (done) => {
@@ -44,8 +41,6 @@ describe('GET View a specific mentor api/v2/mentors/{mentor_Id}', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(HttpStatus.OK);
         expect(res.body.data.id).to.equal(1);
-        expect(res.body.data.firstName).to.equal('murengezi');
-        expect(res.body.data.lastName).to.equal('aime');
         expect(res.status).to.equal(HttpStatus.OK);
         done();
       });
@@ -92,8 +87,8 @@ describe('GET user with invalid token, api/v2/mentors', () => {
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(HttpStatus.UNAUTHORIZED);
-        expect(res.body.error).to.equal('You are not a user');
+        expect(res.body.status).to.equal(HttpStatus.NOT_FOUND);
+        expect(res.body.error).to.equal('invalid token');
         done();
       });
   });

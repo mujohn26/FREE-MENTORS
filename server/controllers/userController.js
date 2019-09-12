@@ -51,6 +51,7 @@ class UserController {
        try {
          const { email, password } = req.body;
          const isLogin = await this.model().select('*', 'email=$1', [email]);
+
          if (isLogin[0] && (comparePassword(password, isLogin[0].password))) {
            const token = Token.generateToken(isLogin[0].id, isLogin[0].email,
              isLogin[0].ismentor, isLogin[0].isadmin);
