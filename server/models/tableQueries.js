@@ -75,6 +75,7 @@ VALUES(
  'mj06@gmail.com',
  'accepted'
 );
+
 `);
 
 export default createTables;

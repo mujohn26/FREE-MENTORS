@@ -25,7 +25,6 @@ static createReview = async (req, res) => {
   const menteeId = getUserId(req.header('x-auth-token'), res);
   const mentorReview = await this.modelSession().select('*', 'sessionid=$1', [sessionid]);
   const user = await this.model().select('*', 'id=$1', [menteeId]);
-
   if (!mentorReview[0]) {
     return response.errorMessage(req, res, 'No sessions with that session id', HttpStatus.NOT_FOUND, 'error');
   }
