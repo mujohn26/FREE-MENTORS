@@ -5,7 +5,7 @@ const sessions = [
 
   {
     mentorid: 1,
-    questions: 'business',
+    questions: 'studying',
   },
 
   {

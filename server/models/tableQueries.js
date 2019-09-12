@@ -75,6 +75,24 @@ VALUES(
  'mj06@gmail.com',
  'accepted'
 );
+DROP TABLE IF EXISTS review CASCADE;CREATE TABLE review(
+  reviewid SERIAL NOT NULL,
+  sessionid INTEGER NOT NULL,
+  mentorid INTEGER NOT NULL,
+  menteeid INTEGER NOT NULL,
+  score INTEGER NOT NULL,
+  menteename VARCHAR NOT NULL,
+  remark VARCHAR NOT NULL
+);
+INSERT INTO review(sessionid,mentorid,menteeid,score,menteename,remark)
+VALUES(
+  13,
+  1,
+  5,
+  3,
+ 'munezero pacifique',
+ 'it was a good time just'
+);
 
 `);
 
