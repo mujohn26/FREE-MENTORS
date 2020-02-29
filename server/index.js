@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParse from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import * as HttpStatus from 'http-status-codes';
 import Route from './routes/route';
 
