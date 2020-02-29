@@ -12,6 +12,7 @@ dotenv.config();
 
 const app = express();
 app.use(bodyParse.json());
+app.use(cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
